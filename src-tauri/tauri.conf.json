@@ -1,0 +1,45 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Manzil",
+  "version": "1.0.0",
+  "identifier": "bond.manzil.app",
+  "build": {
+    "frontendDist": "../out",
+    "devUrl": "http://localhost:1420",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "beforeBundleCommand": "pnpm fetch:node"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Manzil",
+        "width": 1100,
+        "height": 910,
+        "minWidth": 1000,
+        "minHeight": 910,
+        "center": true,
+        "decorations": true,
+        "transparent": false,
+        "resizable": false,
+        "maximizable": false,
+        "visible": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' ipc: http://ipc.localhost"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "externalBin": ["binaries/node"]
+  }
+}

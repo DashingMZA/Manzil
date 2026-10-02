@@ -1,0 +1,141 @@
+{
+  "brand": {
+    "name": "Manzil",
+    "tagline": "NVIDIA → Claude Code"
+  },
+  "nav": {
+    "server": "Server",
+    "settings": "Einstellungen",
+    "about": "Über",
+    "donate": "Spenden"
+  },
+  "status": {
+    "running": "Läuft",
+    "stopped": "Gestoppt"
+  },
+  "server": {
+    "title": "Server",
+    "subtitle": "Proxy starten und Live-Logs ansehen.",
+    "setupWarning": "Bevor du startest, trage deinen API-Key ein und wähle ein Modell unter {settingsLink}.",
+    "start": "Proxy starten",
+    "starting": "Wird gestartet…",
+    "stop": "Stopp",
+    "configTitle": "Konfiguration",
+    "listeningOn": "Erreichbar unter",
+    "upstream": "Upstream",
+    "model": "Modell",
+    "smallModel": "Kleines Modell",
+    "apiKey": "API-Key",
+    "notSelected": "— nicht ausgewählt —",
+    "notSet": "NICHT GESETZT",
+    "maxTokens": "Max. Ausgabe-Tokens",
+    "reasoningEffort": "Reasoning-Aufwand",
+    "notSent": "(wird nicht gesendet)",
+    "temperature": "Temperatur",
+    "clientDecides": "(Client entscheidet)",
+    "forceModel": "Modell erzwingen",
+    "debugLogs": "Debug-Logs",
+    "configNote": "Nur API-Key und Modell lassen sich ändern. Alles andere ist zur Build-Zeit fest eingestellt (`src-tauri/src/config.rs`)."
+  },
+  "envSnippet": {
+    "title": "Claude Code einrichten",
+    "intro": "Sobald der Proxy läuft, im Terminal:",
+    "copy": "Kopieren",
+    "copied": "Kopiert.",
+    "note": "`ANTHROPIC_API_KEY=\"\"` ist erforderlich — sonst ignoriert Claude Code den Proxy und ruft direkt Anthropic auf."
+  },
+  "logs": {
+    "title": "Logs",
+    "filterAll": "Alle",
+    "filterInfo": "Info+",
+    "filterWarn": "Warnungen+",
+    "filterError": "Nur Fehler",
+    "autoScroll": "Auto-Scroll",
+    "clear": "Leeren",
+    "emptyStopped": "Der Proxy lief noch nicht.",
+    "emptyFiltered": "Keine Logs auf dieser Stufe."
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "subtitle": "Nur diese zwei Dinge sind konfigurierbar — alles andere ist zur Build-Zeit fest eingestellt.",
+    "loading": "Lädt…",
+    "apiKeyCardTitle": "NVIDIA API-Key",
+    "apiKeyLabel": "API-Key",
+    "apiKeyHint": "build.nvidia.com → Account → API Keys. Wird in einer lokalen SQLite-Datei gespeichert (im Datenordner der App), unverschlüsselt.",
+    "show": "Anzeigen",
+    "hide": "Verbergen",
+    "modelCardTitle": "Modell",
+    "mainModelLabel": "Hauptmodell",
+    "smallModelLabel": "Kleines / Hintergrundmodell",
+    "smallModelHint": "Claude Code fragt für kleine Aufgaben nach einem \"haiku\"-Modell. Leer lassen, um das Hauptmodell zu verwenden.",
+    "infoBox": "**Die eigentliche Regel bei der Modellwahl für Claude Code:** Das Modell muss **Function/Tool-Calling** unterstützen. Jede Aktion von Claude Code — eine Datei lesen, bearbeiten, Bash ausführen — ist ein Tool-Call. Ohne Tool-Calling kann das Modell nur reden, nicht handeln. Deshalb steht die Gruppe *Recommended for Claude Code* ganz oben. Embedding-, Sprach- und Bildgenerierungsmodelle eignen sich nicht dafür.",
+    "nodeCardTitle": "Node-Laufzeit",
+    "nodeIntro": "Die App bringt ein gebündeltes Node mit (falls beim Build `pnpm fetch:node` ausgeführt wurde) — in dem Fall dieses Feld **leer lassen**, nichts zu installieren. Nur ausfüllen, wenn eine bestimmte/andere Node-Version nötig ist.",
+    "nodePathLabel": "Eigener Node-Pfad (optional)",
+    "nodePathHint": "Leer lassen: gebündeltes Node (falls vorhanden) oder das `node` aus dem PATH. Der Proxy braucht Node 20+.",
+    "browse": "Durchsuchen",
+    "check": "Prüfen",
+    "checking": "Wird geprüft…",
+    "save": "Speichern",
+    "saved": "Gespeichert.",
+    "languageCardTitle": "Sprache",
+    "languageLabel": "Oberflächensprache",
+    "portCardTitle": "Port",
+    "portLabel": "Lokaler Port",
+    "portHint": "Standard ist {defaultPort}. Ändere ihn, falls dieser Port auf deinem Rechner schon belegt ist.",
+    "bundledFound": "✓ Gebündeltes Node gefunden ({filename}) — nichts zu installieren.",
+    "bundledMissing": "Gebündeltes Node nicht vorhanden (erwartet: {filename}). Führe vor dem Build `pnpm fetch:node` aus, oder gib unten einen eigenen Pfad an, um ein system-installiertes Node zu nutzen.",
+    "modelHint": "**{count}** geprüfte Modelle. Jedes Modell wurde am funktionierenden NVIDIA-Beispiel geprüft — kein Live-Katalogabruf.",
+    "themeCardTitle": "Farbthema",
+    "themeHint": "Wähle die Akzentfarbe für die gesamte App."
+  },
+  "modelPicker": {
+    "selectPlaceholder": "— Modell auswählen —",
+    "savedGroup": "Gespeichert"
+  },
+  "about": {
+    "title": "Über",
+    "subtitle": "App-Info und Updates.",
+    "version": "Version",
+    "homepage": "Website",
+    "checkUpdates": "Nach Updates suchen",
+    "updateNote": "Öffnet deinen Browser, um die neueste Version zu prüfen.",
+    "description": "Mit Manzil kann Claude Code NVIDIA-NIM-Modelle über einen lokalen Proxy nutzen — außer den Modellaufrufen selbst verlässt keine Daten deinen Rechner."
+  },
+  "donate": {
+    "title": "Manzil unterstützen",
+    "subtitle": "Hilf mit, dieses Tool kostenlos und aktuell zu halten.",
+    "tabCrypto": "Krypto",
+    "tabOther": "Andere",
+    "copyAddress": "Adresse kopieren",
+    "copied": "Kopiert.",
+    "notConfigured": "Noch nicht eingerichtet",
+    "openLink": "Öffnen",
+    "thankYou": "Danke, dass du die Weiterentwicklung unterstützt!"
+  },
+  "mode": {
+    "label": "Darstellung",
+    "light": "Hell",
+    "dark": "Dunkel",
+    "system": "System"
+  },
+  "contextMenu": {
+    "copy": "Kopieren"
+  },
+  "themes": {
+    "green": "Grün",
+    "blue": "Blau",
+    "indigo": "Indigo",
+    "purple": "Violett",
+    "pink": "Pink",
+    "red": "Rot",
+    "orange": "Orange",
+    "yellow": "Gelb",
+    "teal": "Petrol",
+    "cyan": "Cyan"
+  },
+  "sidebar": {
+    "collapse": "Einklappen",
+    "expand": "Ausklappen"
+  }
+}

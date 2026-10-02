@@ -1,0 +1,141 @@
+{
+  "brand": {
+    "name": "Manzil",
+    "tagline": "NVIDIA → Claude Code"
+  },
+  "nav": {
+    "server": "سرور",
+    "settings": "ترتیبات",
+    "about": "بارے میں",
+    "donate": "عطیہ کریں"
+  },
+  "status": {
+    "running": "چل رہا ہے",
+    "stopped": "بند ہے"
+  },
+  "server": {
+    "title": "سرور",
+    "subtitle": "پراکسی چلائیں اور لائیو لاگز دیکھیں۔",
+    "setupWarning": "شروع کرنے سے پہلے {settingsLink} میں API key درج کریں اور ماڈل منتخب کریں۔",
+    "start": "پراکسی شروع کریں",
+    "starting": "شروع ہو رہا ہے…",
+    "stop": "روکیں",
+    "configTitle": "کنفیگریشن",
+    "listeningOn": "یہاں سن رہا ہے",
+    "upstream": "اپ سٹریم",
+    "model": "ماڈل",
+    "smallModel": "چھوٹا ماڈل",
+    "apiKey": "API key",
+    "notSelected": "— منتخب نہیں —",
+    "notSet": "سیٹ نہیں",
+    "maxTokens": "زیادہ سے زیادہ آؤٹ پٹ ٹوکنز",
+    "reasoningEffort": "ریزننگ ایفرٹ",
+    "notSent": "(نہیں بھیجا گیا)",
+    "temperature": "ٹمپریچر",
+    "clientDecides": "(کلائنٹ خود طے کرتا ہے)",
+    "forceModel": "فورس ماڈل",
+    "debugLogs": "ڈیبگ لاگز",
+    "configNote": "صرف API key اور ماڈل بدلے جا سکتے ہیں۔ باقی سب بلڈ کے وقت طے ہے (`src-tauri/src/config.rs`)۔"
+  },
+  "envSnippet": {
+    "title": "Claude Code سیٹ اپ",
+    "intro": "پراکسی چلنے کے بعد، اپنے ٹرمینل میں:",
+    "copy": "کاپی کریں",
+    "copied": "کاپی ہو گیا۔",
+    "note": "`ANTHROPIC_API_KEY=\"\"` ضروری ہے — ورنہ Claude Code پراکسی کو نظرانداز کر کے سیدھا Anthropic کو کال کرے گا۔"
+  },
+  "logs": {
+    "title": "لاگز",
+    "filterAll": "تمام",
+    "filterInfo": "انفو+",
+    "filterWarn": "وارننگز+",
+    "filterError": "صرف ایررز",
+    "autoScroll": "آٹو اسکرول",
+    "clear": "صاف کریں",
+    "emptyStopped": "پراکسی ابھی تک نہیں چلا۔",
+    "emptyFiltered": "اس سطح پر کوئی لاگ نہیں۔"
+  },
+  "settings": {
+    "title": "ترتیبات",
+    "subtitle": "صرف یہ دو چیزیں کنفیگر ہو سکتی ہیں — باقی سب بلڈ کے وقت طے ہے۔",
+    "loading": "لوڈ ہو رہا ہے…",
+    "apiKeyCardTitle": "NVIDIA API key",
+    "apiKeyLabel": "API key",
+    "apiKeyHint": "build.nvidia.com → Account → API Keys۔ ایک لوکل SQLite فائل میں محفوظ ہوتی ہے (ایپ کے ڈیٹا فولڈر میں)، encrypted نہیں۔",
+    "show": "دکھائیں",
+    "hide": "چھپائیں",
+    "modelCardTitle": "ماڈل",
+    "mainModelLabel": "مرکزی ماڈل",
+    "smallModelLabel": "چھوٹا / بیک گراؤنڈ ماڈل",
+    "smallModelHint": "Claude Code چھوٹے کاموں کے لیے ایک \"haiku\" ماڈل مانگتا ہے۔ خالی چھوڑیں تو مرکزی ماڈل ہی استعمال ہوگا۔",
+    "infoBox": "**Claude Code کے لیے ماڈل چننے کا اصل اصول:** ماڈل کو **function / tool calling** سپورٹ کرنی چاہیے۔ Claude Code کا ہر کام — فائل پڑھنا، ایڈٹ کرنا، bash چلانا — ایک tool call ہے۔ tool calling کے بغیر ماڈل صرف بات کر سکتا ہے، کچھ کر نہیں سکتا۔ اسی لیے *Recommended for Claude Code* گروپ سب سے اوپر ہے۔ Embedding، speech اور image-generation ماڈلز اس کام کے نہیں۔",
+    "nodeCardTitle": "Node رن ٹائم",
+    "nodeIntro": "ایپ کے ساتھ ایک بنڈلڈ Node بھی آتا ہے (اگر بلڈ کے وقت `pnpm fetch:node` چلایا گیا ہو) — اس صورت میں یہ فیلڈ **خالی ہی رہنے دیں**، کچھ انسٹال کرنے کی ضرورت نہیں۔ یہ فیلڈ صرف تب بھریں جب کوئی مخصوص/الگ Node ورژن استعمال کرنی ہو۔",
+    "nodePathLabel": "کسٹم Node پاتھ (اختیاری)",
+    "nodePathHint": "خالی چھوڑیں: بنڈلڈ Node (اگر موجود ہے) یا PATH کا `node`۔ پراکسی کو Node 20+ چاہیے۔",
+    "browse": "براؤز کریں",
+    "check": "چیک کریں",
+    "checking": "چیک ہو رہا ہے…",
+    "save": "محفوظ کریں",
+    "saved": "محفوظ ہو گیا۔",
+    "languageCardTitle": "زبان",
+    "languageLabel": "انٹرفیس کی زبان",
+    "portCardTitle": "پورٹ",
+    "portLabel": "لوکل پورٹ",
+    "portHint": "ڈیفالٹ {defaultPort} ہے۔ اگر یہ پورٹ آپ کے سسٹم پر کسی اور چیز کے زیرِ استعمال ہے تو بدل دیں۔",
+    "bundledFound": "✓ بنڈلڈ Node مل گیا ({filename}) — کچھ انسٹال کرنے کی ضرورت نہیں۔",
+    "bundledMissing": "بنڈلڈ Node موجود نہیں ({filename} متوقع تھی)۔ بلڈ سے پہلے `pnpm fetch:node` چلائیں، یا نیچے کسٹم پاتھ دے کر سسٹم Node استعمال کریں۔",
+    "modelHint": "**{count}** تصدیق شدہ ماڈلز۔ یہاں ہر ماڈل NVIDIA کی اپنی کام کرنے والی مثال سے جانچا گیا ہے — کوئی لائیو کیٹلاگ فیچ نہیں۔",
+    "themeCardTitle": "رنگ کی تھیم",
+    "themeHint": "ایپ بھر میں استعمال ہونے والا نمایاں رنگ منتخب کریں۔"
+  },
+  "modelPicker": {
+    "selectPlaceholder": "— ماڈل منتخب کریں —",
+    "savedGroup": "محفوظ شدہ"
+  },
+  "about": {
+    "title": "بارے میں",
+    "subtitle": "ایپ کی معلومات اور اپڈیٹس۔",
+    "version": "ورژن",
+    "homepage": "ویب سائٹ",
+    "checkUpdates": "اپڈیٹس چیک کریں",
+    "updateNote": "تازہ ترین ورژن چیک کرنے کے لیے آپ کا براؤزر کھولتا ہے۔",
+    "description": "Manzil آپ کو Claude Code کے ذریعے NVIDIA NIM ماڈلز استعمال کرنے دیتا ہے — ایک لوکل پراکسی کے ذریعے۔ ماڈل کالز کے علاوہ کوئی ڈیٹا آپ کی مشین سے باہر نہیں جاتا۔"
+  },
+  "donate": {
+    "title": "Manzil کو سپورٹ کریں",
+    "subtitle": "اسے مفت اور اپڈیٹڈ رکھنے میں مدد کریں۔",
+    "tabCrypto": "کرپٹو",
+    "tabOther": "دیگر",
+    "copyAddress": "ایڈریس کاپی کریں",
+    "copied": "کاپی ہو گیا۔",
+    "notConfigured": "ابھی سیٹ اپ نہیں ہوا",
+    "openLink": "کھولیں",
+    "thankYou": "مسلسل ترقی میں سپورٹ کرنے کا شکریہ!"
+  },
+  "mode": {
+    "label": "ظاہری شکل",
+    "light": "روشن",
+    "dark": "تاریک",
+    "system": "سسٹم"
+  },
+  "contextMenu": {
+    "copy": "کاپی کریں"
+  },
+  "themes": {
+    "green": "سبز",
+    "blue": "نیلا",
+    "indigo": "انڈیگو",
+    "purple": "جامنی",
+    "pink": "گلابی",
+    "red": "سرخ",
+    "orange": "نارنجی",
+    "yellow": "پیلا",
+    "teal": "ٹیل",
+    "cyan": "آسمانی"
+  },
+  "sidebar": {
+    "collapse": "سکیڑیں",
+    "expand": "پھیلائیں"
+  }
+}

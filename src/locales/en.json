@@ -1,0 +1,141 @@
+{
+  "brand": {
+    "name": "Manzil",
+    "tagline": "NVIDIA → Claude Code"
+  },
+  "nav": {
+    "server": "Server",
+    "settings": "Settings",
+    "about": "About",
+    "donate": "Donate"
+  },
+  "status": {
+    "running": "Running",
+    "stopped": "Stopped"
+  },
+  "server": {
+    "title": "Server",
+    "subtitle": "Run the proxy and watch live logs.",
+    "setupWarning": "Set your API key and pick a model in {settingsLink} before starting.",
+    "start": "Start proxy",
+    "starting": "Starting…",
+    "stop": "Stop",
+    "configTitle": "Configuration",
+    "listeningOn": "Listening on",
+    "upstream": "Upstream",
+    "model": "Model",
+    "smallModel": "Small model",
+    "apiKey": "API key",
+    "notSelected": "— not selected —",
+    "notSet": "NOT SET",
+    "maxTokens": "Max output tokens",
+    "reasoningEffort": "Reasoning effort",
+    "notSent": "(not sent)",
+    "temperature": "Temperature",
+    "clientDecides": "(client decides)",
+    "forceModel": "Force model",
+    "debugLogs": "Debug logs",
+    "configNote": "Only the API key and model can be changed. Everything else is fixed at build time (`src-tauri/src/config.rs`)."
+  },
+  "envSnippet": {
+    "title": "Claude Code setup",
+    "intro": "Once the proxy is running, in your terminal:",
+    "copy": "Copy",
+    "copied": "Copied.",
+    "note": "`ANTHROPIC_API_KEY=\"\"` is required — otherwise Claude Code ignores the proxy and calls Anthropic directly."
+  },
+  "logs": {
+    "title": "Logs",
+    "filterAll": "All",
+    "filterInfo": "Info+",
+    "filterWarn": "Warnings+",
+    "filterError": "Errors only",
+    "autoScroll": "Auto-scroll",
+    "clear": "Clear",
+    "emptyStopped": "The proxy hasn't run yet.",
+    "emptyFiltered": "No logs at this level."
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Only these two things are configurable — everything else is fixed at build time.",
+    "loading": "Loading…",
+    "apiKeyCardTitle": "NVIDIA API key",
+    "apiKeyLabel": "API key",
+    "apiKeyHint": "build.nvidia.com → Account → API Keys. Stored in a local SQLite file (in the app's data folder), unencrypted.",
+    "show": "Show",
+    "hide": "Hide",
+    "modelCardTitle": "Model",
+    "mainModelLabel": "Main model",
+    "smallModelLabel": "Small / background model",
+    "smallModelHint": "Claude Code asks for a \"haiku\" model for small tasks. Leave blank to use the main model.",
+    "infoBox": "**The real rule for picking a model for Claude Code:** the model must support **function / tool calling**. Every Claude Code action — reading a file, editing it, running bash — is a tool call. Without tool calling the model can only talk, not act. That's why the *Recommended for Claude Code* group is listed first. Embedding, speech, and image-generation models don't qualify.",
+    "nodeCardTitle": "Node runtime",
+    "nodeIntro": "The app ships with a bundled Node (if `pnpm fetch:node` was run at build time) — in that case leave this field **blank**, nothing to install. Only fill it in if you need a specific/different Node version.",
+    "nodePathLabel": "Custom node path (optional)",
+    "nodePathHint": "Leave blank: bundled Node (if staged) or PATH's `node`. The proxy needs Node 20+.",
+    "browse": "Browse",
+    "check": "Check",
+    "checking": "Checking…",
+    "save": "Save",
+    "saved": "Saved.",
+    "languageCardTitle": "Language",
+    "languageLabel": "Interface language",
+    "portCardTitle": "Port",
+    "portLabel": "Local port",
+    "portHint": "Default is {defaultPort}. Change it if that port is already used by something else on your machine.",
+    "bundledFound": "✓ Bundled Node found ({filename}) — nothing to install.",
+    "bundledMissing": "Bundled Node not staged (expected {filename}). Run `pnpm fetch:node` before building, or fill in a custom path below to use a system-installed Node.",
+    "modelHint": "**{count}** verified models. Every model here is checked against NVIDIA's own working example — no live catalog fetch.",
+    "themeCardTitle": "Color theme",
+    "themeHint": "Pick the accent color used across the app."
+  },
+  "modelPicker": {
+    "selectPlaceholder": "— select a model —",
+    "savedGroup": "Saved"
+  },
+  "about": {
+    "title": "About",
+    "subtitle": "App info and updates.",
+    "version": "Version",
+    "homepage": "Website",
+    "checkUpdates": "Check for updates",
+    "updateNote": "Opens your browser to check for the latest version.",
+    "description": "Manzil lets Claude Code use NVIDIA NIM models through a local proxy — no data leaves your machine except the model calls themselves."
+  },
+  "donate": {
+    "title": "Support Manzil",
+    "subtitle": "Help keep this free and maintained.",
+    "tabCrypto": "Crypto",
+    "tabOther": "Other",
+    "copyAddress": "Copy address",
+    "copied": "Copied.",
+    "notConfigured": "Not set up yet",
+    "openLink": "Open",
+    "thankYou": "Thank you for supporting continued development!"
+  },
+  "mode": {
+    "label": "Appearance",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "contextMenu": {
+    "copy": "Copy"
+  },
+  "themes": {
+    "green": "Green",
+    "blue": "Blue",
+    "indigo": "Indigo",
+    "purple": "Purple",
+    "pink": "Pink",
+    "red": "Red",
+    "orange": "Orange",
+    "yellow": "Yellow",
+    "teal": "Teal",
+    "cyan": "Cyan"
+  },
+  "sidebar": {
+    "collapse": "Collapse",
+    "expand": "Expand"
+  }
+}

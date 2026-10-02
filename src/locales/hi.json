@@ -1,0 +1,141 @@
+{
+  "brand": {
+    "name": "Manzil",
+    "tagline": "NVIDIA → Claude Code"
+  },
+  "nav": {
+    "server": "सर्वर",
+    "settings": "सेटिंग्स",
+    "about": "ऐप के बारे में",
+    "donate": "डोनेट करें"
+  },
+  "status": {
+    "running": "चल रहा है",
+    "stopped": "बंद है"
+  },
+  "server": {
+    "title": "सर्वर",
+    "subtitle": "प्रॉक्सी चलाएं और लाइव लॉग्स देखें।",
+    "setupWarning": "शुरू करने से पहले {settingsLink} में API key डालें और मॉडल चुनें।",
+    "start": "प्रॉक्सी शुरू करें",
+    "starting": "शुरू हो रहा है…",
+    "stop": "रोकें",
+    "configTitle": "कॉन्फ़िगरेशन",
+    "listeningOn": "यहां सुन रहा है",
+    "upstream": "अपस्ट्रीम",
+    "model": "मॉडल",
+    "smallModel": "छोटा मॉडल",
+    "apiKey": "API key",
+    "notSelected": "— चुना नहीं गया —",
+    "notSet": "सेट नहीं है",
+    "maxTokens": "अधिकतम आउटपुट टोकन",
+    "reasoningEffort": "रीज़निंग एफर्ट",
+    "notSent": "(भेजा नहीं जाता)",
+    "temperature": "टेम्परेचर",
+    "clientDecides": "(क्लाइंट खुद तय करता है)",
+    "forceModel": "फोर्स मॉडल",
+    "debugLogs": "डीबग लॉग्स",
+    "configNote": "सिर्फ API key और मॉडल बदले जा सकते हैं। बाकी सब बिल्ड के समय तय है (`src-tauri/src/config.rs`)।"
+  },
+  "envSnippet": {
+    "title": "Claude Code सेटअप",
+    "intro": "प्रॉक्सी चलने के बाद, अपने टर्मिनल में:",
+    "copy": "कॉपी करें",
+    "copied": "कॉपी हो गया।",
+    "note": "`ANTHROPIC_API_KEY=\"\"` ज़रूरी है — वरना Claude Code प्रॉक्सी को नज़रअंदाज़ कर के सीधे Anthropic को कॉल करेगा।"
+  },
+  "logs": {
+    "title": "लॉग्स",
+    "filterAll": "सभी",
+    "filterInfo": "इन्फो+",
+    "filterWarn": "चेतावनियां+",
+    "filterError": "सिर्फ एरर्स",
+    "autoScroll": "ऑटो-स्क्रॉल",
+    "clear": "साफ़ करें",
+    "emptyStopped": "प्रॉक्सी अभी तक नहीं चली।",
+    "emptyFiltered": "इस लेवल पर कोई लॉग नहीं।"
+  },
+  "settings": {
+    "title": "सेटिंग्स",
+    "subtitle": "सिर्फ ये दो चीज़ें कॉन्फ़िगर हो सकती हैं — बाकी सब बिल्ड के समय तय है।",
+    "loading": "लोड हो रहा है…",
+    "apiKeyCardTitle": "NVIDIA API key",
+    "apiKeyLabel": "API key",
+    "apiKeyHint": "build.nvidia.com → Account → API Keys। एक लोकल SQLite फाइल में सेव होती है (ऐप के डेटा फोल्डर में), एन्क्रिप्टेड नहीं।",
+    "show": "दिखाएं",
+    "hide": "छिपाएं",
+    "modelCardTitle": "मॉडल",
+    "mainModelLabel": "मुख्य मॉडल",
+    "smallModelLabel": "छोटा / बैकग्राउंड मॉडल",
+    "smallModelHint": "Claude Code छोटे कामों के लिए एक \"haiku\" मॉडल मांगता है। खाली छोड़ें तो मुख्य मॉडल ही इस्तेमाल होगा।",
+    "infoBox": "**Claude Code के लिए मॉडल चुनने का असली नियम:** मॉडल को **function / tool calling** सपोर्ट करनी चाहिए। Claude Code का हर काम — फाइल पढ़ना, एडिट करना, bash चलाना — एक tool call है। tool calling के बिना मॉडल सिर्फ बात कर सकता है, कुछ कर नहीं सकता। इसीलिए *Recommended for Claude Code* ग्रुप सबसे ऊपर है। Embedding, speech और image-generation मॉडल्स इस काम के नहीं।",
+    "nodeCardTitle": "Node रनटाइम",
+    "nodeIntro": "ऐप के साथ एक बंडल्ड Node भी आता है (अगर बिल्ड के समय `pnpm fetch:node` चलाया गया हो) — उस सूरत में ये फील्ड **खाली ही रहने दें**, कुछ इंस्टॉल करने की ज़रूरत नहीं। ये फील्ड सिर्फ तब भरें जब कोई खास/अलग Node वर्ज़न इस्तेमाल करनी हो।",
+    "nodePathLabel": "कस्टम Node पाथ (वैकल्पिक)",
+    "nodePathHint": "खाली छोड़ें: बंडल्ड Node (अगर मौजूद है) या PATH का `node`। प्रॉक्सी को Node 20+ चाहिए।",
+    "browse": "ब्राउज़ करें",
+    "check": "चेक करें",
+    "checking": "चेक हो रहा है…",
+    "save": "सेव करें",
+    "saved": "सेव हो गया।",
+    "languageCardTitle": "भाषा",
+    "languageLabel": "इंटरफ़ेस की भाषा",
+    "portCardTitle": "पोर्ट",
+    "portLabel": "लोकल पोर्ट",
+    "portHint": "डिफ़ॉल्ट {defaultPort} है। अगर यह पोर्ट आपकी मशीन पर पहले से किसी और चीज़ के इस्तेमाल में है तो बदल दें।",
+    "bundledFound": "✓ बंडल्ड Node मिल गया ({filename}) — कुछ इंस्टॉल करने की ज़रूरत नहीं।",
+    "bundledMissing": "बंडल्ड Node मौजूद नहीं है (उम्मीद थी {filename})। बिल्ड से पहले `pnpm fetch:node` चलाएं, या नीचे कस्टम पाथ देकर सिस्टम का Node इस्तेमाल करें।",
+    "modelHint": "**{count}** सत्यापित मॉडल्स। यहां हर मॉडल NVIDIA के अपने चलते-फिरते उदाहरण से जांचा गया है — कोई लाइव कैटलॉग फेच नहीं।",
+    "themeCardTitle": "कलर थीम",
+    "themeHint": "ऐप में इस्तेमाल होने वाला एक्सेंट रंग चुनें।"
+  },
+  "modelPicker": {
+    "selectPlaceholder": "— एक मॉडल चुनें —",
+    "savedGroup": "सेव किया गया"
+  },
+  "about": {
+    "title": "ऐप के बारे में",
+    "subtitle": "ऐप जानकारी और अपडेट्स।",
+    "version": "वर्ज़न",
+    "homepage": "वेबसाइट",
+    "checkUpdates": "अपडेट्स चेक करें",
+    "updateNote": "नवीनतम वर्ज़न चेक करने के लिए आपका ब्राउज़र खोलता है।",
+    "description": "Manzil, Claude Code को एक लोकल प्रॉक्सी के ज़रिए NVIDIA NIM मॉडल्स इस्तेमाल करने देता है — मॉडल कॉल्स के अलावा कोई डेटा आपकी मशीन से बाहर नहीं जाता।"
+  },
+  "donate": {
+    "title": "Manzil को सपोर्ट करें",
+    "subtitle": "इसे मुफ़्त और अपडेटेड रखने में मदद करें।",
+    "tabCrypto": "क्रिप्टो",
+    "tabOther": "अन्य",
+    "copyAddress": "एड्रेस कॉपी करें",
+    "copied": "कॉपी हो गया।",
+    "notConfigured": "अभी सेटअप नहीं हुआ",
+    "openLink": "खोलें",
+    "thankYou": "लगातार डेवलपमेंट को सपोर्ट करने के लिए धन्यवाद!"
+  },
+  "mode": {
+    "label": "दिखावट",
+    "light": "लाइट",
+    "dark": "डार्क",
+    "system": "सिस्टम"
+  },
+  "contextMenu": {
+    "copy": "कॉपी करें"
+  },
+  "themes": {
+    "green": "हरा",
+    "blue": "नीला",
+    "indigo": "गहरा नीला",
+    "purple": "बैंगनी",
+    "pink": "गुलाबी",
+    "red": "लाल",
+    "orange": "नारंगी",
+    "yellow": "पीला",
+    "teal": "टील",
+    "cyan": "आसमानी"
+  },
+  "sidebar": {
+    "collapse": "छोटा करें",
+    "expand": "बड़ा करें"
+  }
+}

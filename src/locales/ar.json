@@ -1,0 +1,141 @@
+{
+  "brand": {
+    "name": "Manzil",
+    "tagline": "NVIDIA → Claude Code"
+  },
+  "nav": {
+    "server": "الخادم",
+    "settings": "الإعدادات",
+    "about": "حول",
+    "donate": "تبرّع"
+  },
+  "status": {
+    "running": "يعمل",
+    "stopped": "متوقف"
+  },
+  "server": {
+    "title": "الخادم",
+    "subtitle": "شغّل البروكسي وشاهد السجلات مباشرة.",
+    "setupWarning": "قبل البدء، أدخل مفتاح API واختر نموذجًا في {settingsLink}.",
+    "start": "تشغيل البروكسي",
+    "starting": "جارٍ التشغيل…",
+    "stop": "إيقاف",
+    "configTitle": "الإعدادات الحالية",
+    "listeningOn": "يستمع على",
+    "upstream": "الخادم الأعلى (Upstream)",
+    "model": "النموذج",
+    "smallModel": "النموذج الصغير",
+    "apiKey": "مفتاح API",
+    "notSelected": "— لم يتم الاختيار —",
+    "notSet": "غير محدد",
+    "maxTokens": "الحد الأقصى لرموز الإخراج",
+    "reasoningEffort": "جهد الاستدلال",
+    "notSent": "(لا يُرسل)",
+    "temperature": "درجة الحرارة (Temperature)",
+    "clientDecides": "(يحدده العميل)",
+    "forceModel": "فرض النموذج",
+    "debugLogs": "سجلات التصحيح",
+    "configNote": "يمكن تغيير مفتاح API والنموذج فقط. كل شيء آخر ثابت عند البناء (`src-tauri/src/config.rs`)."
+  },
+  "envSnippet": {
+    "title": "إعداد Claude Code",
+    "intro": "بعد تشغيل البروكسي، في الطرفية (Terminal):",
+    "copy": "نسخ",
+    "copied": "تم النسخ.",
+    "note": "`ANTHROPIC_API_KEY=\"\"` ضروري — وإلا سيتجاهل Claude Code البروكسي ويتصل مباشرة بـ Anthropic."
+  },
+  "logs": {
+    "title": "السجلات",
+    "filterAll": "الكل",
+    "filterInfo": "معلومات+",
+    "filterWarn": "تحذيرات+",
+    "filterError": "الأخطاء فقط",
+    "autoScroll": "تمرير تلقائي",
+    "clear": "مسح",
+    "emptyStopped": "لم يعمل البروكسي بعد.",
+    "emptyFiltered": "لا توجد سجلات بهذا المستوى."
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "subtitle": "هاتان الخاصيتان فقط قابلتان للتهيئة — كل شيء آخر ثابت عند البناء.",
+    "loading": "جارٍ التحميل…",
+    "apiKeyCardTitle": "مفتاح NVIDIA API",
+    "apiKeyLabel": "مفتاح API",
+    "apiKeyHint": "build.nvidia.com ← Account ← API Keys. يُحفظ في ملف SQLite محلي (في مجلد بيانات التطبيق)، بدون تشفير.",
+    "show": "إظهار",
+    "hide": "إخفاء",
+    "modelCardTitle": "النموذج",
+    "mainModelLabel": "النموذج الرئيسي",
+    "smallModelLabel": "النموذج الصغير / الخلفي",
+    "smallModelHint": "يطلب Claude Code نموذج \"haiku\" للمهام الصغيرة. اتركه فارغًا لاستخدام النموذج الرئيسي.",
+    "infoBox": "**القاعدة الحقيقية لاختيار نموذج لـ Claude Code:** يجب أن يدعم النموذج **استدعاء الوظائف/الأدوات (function / tool calling)**. كل عمل يقوم به Claude Code — قراءة ملف، تعديله، تشغيل bash — هو استدعاء أداة. بدون هذه الميزة، يستطيع النموذج الكلام فقط لا التنفيذ. لهذا تأتي مجموعة *Recommended for Claude Code* في الأعلى. نماذج التضمين (embedding) والصوت وتوليد الصور لا تصلح لهذا.",
+    "nodeCardTitle": "بيئة تشغيل Node",
+    "nodeIntro": "يأتي التطبيق مع نسخة Node مضمّنة (إذا تم تشغيل `pnpm fetch:node` عند البناء) — في هذه الحالة اترك هذا الحقل **فارغًا**، لا حاجة لتثبيت أي شيء. املأه فقط إذا كنت بحاجة لإصدار Node محدد/مختلف.",
+    "nodePathLabel": "مسار Node مخصص (اختياري)",
+    "nodePathHint": "اتركه فارغًا: سيُستخدم Node المضمّن (إن وُجد) أو `node` من PATH. يحتاج البروكسي إلى Node 20+.",
+    "browse": "استعراض",
+    "check": "فحص",
+    "checking": "جارٍ الفحص…",
+    "save": "حفظ",
+    "saved": "تم الحفظ.",
+    "languageCardTitle": "اللغة",
+    "languageLabel": "لغة الواجهة",
+    "portCardTitle": "المنفذ (Port)",
+    "portLabel": "المنفذ المحلي",
+    "portHint": "الافتراضي هو {defaultPort}. غيّره إذا كان هذا المنفذ مستخدَمًا بالفعل على جهازك.",
+    "bundledFound": "✓ تم العثور على Node المضمّن ({filename}) — لا حاجة لتثبيت أي شيء.",
+    "bundledMissing": "Node المضمّن غير موجود (المتوقع: {filename}). شغّل `pnpm fetch:node` قبل البناء، أو أدخل مسارًا مخصصًا أدناه لاستخدام Node مثبّت على النظام.",
+    "modelHint": "**{count}** نموذجًا تم التحقق منها. كل نموذج هنا مطابق لمثال NVIDIA العملي الخاص به — بدون جلب مباشر للقائمة.",
+    "themeCardTitle": "سمة الألوان",
+    "themeHint": "اختر لون التمييز المستخدم في التطبيق."
+  },
+  "modelPicker": {
+    "selectPlaceholder": "— اختر نموذجًا —",
+    "savedGroup": "محفوظ"
+  },
+  "about": {
+    "title": "حول",
+    "subtitle": "معلومات التطبيق والتحديثات.",
+    "version": "الإصدار",
+    "homepage": "الموقع الإلكتروني",
+    "checkUpdates": "التحقق من التحديثات",
+    "updateNote": "يفتح متصفحك للتحقق من أحدث إصدار.",
+    "description": "يتيح Manzil لـ Claude Code استخدام نماذج NVIDIA NIM عبر بروكسي محلي — لا تغادر أي بيانات جهازك سوى طلبات النموذج نفسها."
+  },
+  "donate": {
+    "title": "ادعم Manzil",
+    "subtitle": "ساعد في إبقاء هذه الأداة مجانية ومحدَّثة.",
+    "tabCrypto": "عملات رقمية",
+    "tabOther": "أخرى",
+    "copyAddress": "نسخ العنوان",
+    "copied": "تم النسخ.",
+    "notConfigured": "لم يتم إعداده بعد",
+    "openLink": "فتح",
+    "thankYou": "شكرًا لدعمك التطوير المستمر!"
+  },
+  "mode": {
+    "label": "المظهر",
+    "light": "فاتح",
+    "dark": "داكن",
+    "system": "النظام"
+  },
+  "contextMenu": {
+    "copy": "نسخ"
+  },
+  "themes": {
+    "green": "أخضر",
+    "blue": "أزرق",
+    "indigo": "نيلي",
+    "purple": "بنفسجي",
+    "pink": "وردي",
+    "red": "أحمر",
+    "orange": "برتقالي",
+    "yellow": "أصفر",
+    "teal": "تركوازي",
+    "cyan": "سماوي"
+  },
+  "sidebar": {
+    "collapse": "طي القائمة",
+    "expand": "توسيع القائمة"
+  }
+}

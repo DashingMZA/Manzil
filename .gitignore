@@ -1,8 +1,19 @@
+# Node
 node_modules/
 .next/
 out/
-next-env.d.ts
+*.tsbuildinfo
+npm-debug.log*
+
+# Rust / Tauri
 src-tauri/target/
 src-tauri/gen/
-*.log
+src-tauri/binaries/
+
+# OS cruft
 .DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local

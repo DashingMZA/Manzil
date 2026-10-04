@@ -80,6 +80,18 @@ Publish hote hi:
 
 ## Changelog
 
+### v1.1.0 — 2026
+
+- Real auto-update (`tauri-plugin-updater` + `tauri-plugin-process`) —
+  About page ab check/download/install/restart khud karta hai
+- GitHub Actions release workflow (`.github/workflows/release.yml`) —
+  tag push par 4-platform (Windows/macOS Intel+Apple Silicon/Linux) build
+- `download-widget.html` — manzil.bond ke liye standalone download widget
+- Fixed window size (1100x910, non-resizable), custom Windows manifest
+  (Common-Controls v6)
+- Sidebar collapse/expand, active-page accent color
+- Donate page ki real payment details, Tauri-generated icons
+
 ### v1.0.0 — 2026
 
 Pehla release.

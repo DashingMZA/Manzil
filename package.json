@@ -6,7 +6,7 @@
   "author": "Zaheer Ahmad",
   "homepage": "https://manzil.bond",
   "license": "MIT",
-  "packageManager": "pnpm@12.4.2",
+  "packageManager": "pnpm@12.9.1",
   "engines": {
     "node": ">=24"
   },
@@ -23,28 +23,30 @@
     "fetch:node": "node scripts/fetch-node.mjs"
   },
   "dependencies": {
-    "@tauri-apps/api": "^2.10.1",
-    "@tauri-apps/plugin-clipboard-manager": "^2.3.3",
-    "@tauri-apps/plugin-dialog": "^2.7.0",
-    "@tauri-apps/plugin-fs": "^2.5.0",
-    "@tauri-apps/plugin-shell": "^2.3.5",
-    "@tauri-apps/plugin-sql": "^2.4.0",
-    "@tauri-apps/plugin-updater": "^2.9.0",
-    "@tauri-apps/plugin-process": "^2.3.0",
-    "next": "16.3.5",
+    "@tauri-apps/api": "^2.12.1",
+    "@tauri-apps/plugin-autostart": "^2.7.0",
+    "@tauri-apps/plugin-clipboard-manager": "^2.4.1",
+    "@tauri-apps/plugin-dialog": "^2.8.1",
+    "@tauri-apps/plugin-fs": "^2.6.0",
+    "@tauri-apps/plugin-opener": "^2.7.0",
+    "@tauri-apps/plugin-process": "^2.4.0",
+    "@tauri-apps/plugin-shell": "^2.4.0",
+    "@tauri-apps/plugin-updater": "^2.13.1",
+    "@tauri-apps/plugin-sql": "^2.5.0",
+    "next": "16.3.8",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^2.10.1",
-    "@types/node": "^24.13.4",
+    "@tauri-apps/cli": "^2.12.1",
+    "@types/node": "^24.19.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "dotenv-cli": "^11.0.0",
-    "eslint": "10.10.0",
-    "eslint-config-next": "16.3.5",
-    "prettier": "3.9.6",
+    "eslint": "10.12.0",
+    "eslint-config-next": "16.3.8",
+    "prettier": "3.9.9",
     "typescript": "^7.0.2"
   }
 }

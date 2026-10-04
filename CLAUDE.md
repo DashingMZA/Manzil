@@ -87,3 +87,11 @@ dein, lekin decisions aur unresolved TODOs kabhi mat hataayein.
   settings-page field na banayein jab tak explicitly na kaha jaye.
 - Frontend `output: "export"` (static) rehna chahiye. Koi API route, koi SSR,
   koi server action add na karein — Tauri Node server nahi chalata.
+- **Har delivery ke saath version 3 jagah sync honi chahiye** (user ka
+  standing instruction, 2026-10-04 se): `package.json`, `src-tauri/tauri.conf.json`,
+  `src-tauri/Cargo.toml` — teeno mein exactly same version string. Chhoti
+  fixes = patch bump (1.1.0 → 1.1.1), nayi features = minor (1.1.0 → 1.2.0).
+  `src-tauri/Cargo.lock` ki apni `name = "Manzil"` entry bhi saath mein sync
+  karein (warna agli build par khud-ba-khud update ho jayegi, lekin sync
+  rakhna cleaner hai). `RELEASES.md` ke changelog mein entry add karna na
+  bhoolein.

@@ -10,6 +10,20 @@ chhote bullets. Poore paragraphs nahi.
 
 ---
 
+## 2026-10-04 — Version sync rule (standing instruction) + v1.1.0 bump
+
+- **User ka standing instruction:** "ab se package version bhi update kar ke
+  dena 3no jagah, package.json, tauri.conf.json, Cargo.toml" — ye
+  `CLAUDE.md` ke Hard Constraints mein likh diya hai taake future
+  sessions (Claude Code ya main) bhool na jayein.
+- **Version 1.0.0 → 1.1.0 bump kiya** (teeno jagah + `Cargo.lock` ki apni
+  entry): 1.0.0 ke baad se itne naye features aa chuke the (themes, tray,
+  i18n, 20-model catalog + overrides, real updater, donate/about,
+  sidebar collapse) ke patch (1.0.1) ki jagah minor bump zyada sahi laga.
+  `RELEASES.md` mein v1.1.0 changelog entry add ki.
+
+---
+
 ## 2026-10-03 — Real auto-update, GitHub release workflow, download widget, RELEASES.md
 
 - **tauri.conf.json merge-fix:** user ne reference file di (Jadoo project se

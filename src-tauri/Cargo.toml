@@ -1,6 +1,6 @@
 [package]
 name = "Manzil"
-version = "1.0.1"
+version = "1.0.0"
 description = "NVIDIA NIM -> Claude Code proxy control panel"
 authors = ["Zaheer Ahmad"]
 homepage = "https://manzil.bond"

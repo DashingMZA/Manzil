@@ -1,6 +1,6 @@
 {
   "name": "manzil",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "private": true,
   "description": "Manzil (manzil.bond) \u2014 NVIDIA NIM -> Claude Code proxy, as a Tauri 2 desktop app",
   "author": "Zaheer Ahmad",

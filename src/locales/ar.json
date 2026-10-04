@@ -100,7 +100,14 @@
     "homepage": "الموقع الإلكتروني",
     "checkUpdates": "التحقق من التحديثات",
     "updateNote": "يفتح متصفحك للتحقق من أحدث إصدار.",
-    "description": "يتيح Manzil لـ Claude Code استخدام نماذج NVIDIA NIM عبر بروكسي محلي — لا تغادر أي بيانات جهازك سوى طلبات النموذج نفسها."
+    "description": "يتيح Manzil لـ Claude Code استخدام نماذج NVIDIA NIM عبر بروكسي محلي — لا تغادر أي بيانات جهازك سوى طلبات النموذج نفسها.",
+    "checking": "جارٍ التحقق…",
+    "upToDate": "أنت تستخدم أحدث إصدار.",
+    "updateAvailable": "التحديث {version} متوفر.",
+    "downloadInstall": "تنزيل وتثبيت",
+    "installing": "جارٍ التنزيل والتثبيت…",
+    "installed": "تم التثبيت — أعد التشغيل للتطبيق.",
+    "restart": "إعادة التشغيل الآن"
   },
   "donate": {
     "title": "ادعم Manzil",

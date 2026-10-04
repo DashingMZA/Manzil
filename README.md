@@ -41,6 +41,9 @@ Manzil/
 ├── next.config.ts            output: "export"  (Tauri ke liye zaroori)
 ├── tsconfig.json             @/* -> src/*
 ├── eslint.config.mjs
+├── RELEASES.md                release process, signing keys setup, changelog
+├── download-widget.html       manzil.bond ke liye standalone download widget
+├── .github/workflows/release.yml   tag push par 4-platform build + draft release
 │
 ├── scripts/
 │   └── fetch-node.mjs        bundled Node download + stage (sidecar)
@@ -130,23 +133,41 @@ tab bharein jab koi specific/alag Node version use karni ho.
 
 ## About aur Donate pages
 
-- **`/about`** — app version (`Cargo.toml` se), homepage link, "Check for
-  updates" button. **Real auto-update wired nahi hai** — button sirf
-  `config::UPDATE_CHECK_URL` (abhi placeholder: manzil.bond) browser mein
-  kholta hai. Asli auto-update chahiye to `tauri-plugin-updater` + signing
-  keys + ek release feed (GitHub Releases `latest.json` jaisa) setup karna
-  hoga — abhi ka scope sirf link-out hai, jhooti "up to date" wali baat
-  jaan-boojh kar nahi dikhata.
+- **`/about`** — app version (`Cargo.toml` se), homepage link, aur **real
+  auto-update** (`tauri-plugin-updater` + `tauri-plugin-process`). "Check
+  for updates" → NVIDIA... nahi, GitHub Releases ka `latest.json` check
+  karta hai → update mile to "Download & Install" → install ke baad
+  "Restart now". Tauri ke baghair (`pnpm dev`) ye releases page browser
+  mein khol deta hai, kyunki updater plugin sirf real app ke andar kaam
+  karta hai. Setup (signing keys, GitHub secrets) `RELEASES.md` mein hai —
+  **jab tak aap apni khud ki keys generate na karein, updater kaam nahi
+  karega** (security check fail hoga, galat/kisi-aur-ki key verify nahi
+  hogi).
 
-- **`/donate`** — `src/lib/donation.ts` mein crypto addresses (USDT-TRC20,
-  USDT-BEP20, BTC, BNB, ETH) aur links (Gumroad, Buy Me a Coffee,
-  PayPal.me).
+- **`/donate`** — `src/lib/donation.ts` mein real crypto addresses aur
+  links (Gumroad, Buy Me a Coffee, PayPal.me) — user ne di hui.
 
-  > ⚠️ **Sab abhi placeholder hain** (`REPLACE_WITH_...`). Deploy karne se
-  > pehle `src/lib/donation.ts` khol kar apni **real** addresses aur
-  > usernames daalein. Jab tak placeholder hai, page mein "Not set up yet"
-  > dikhega aur copy/open buttons disabled rahenge — is se galti se kisi
-  > aur ke address par donation jaane se bacha jata hai.
+---
+
+## Release karna aur download widget
+
+Naya version release karna ho (`git tag v1.x.x` push karke) — poora process,
+signing keys setup, aur changelog **`RELEASES.md`** mein hai.
+
+`.github/workflows/release.yml` tag push par khud Windows/macOS
+(Intel+Apple Silicon)/Linux build kar ke ek draft GitHub Release banata hai.
+Node sidecar har platform khud fetch karta hai (`pnpm fetch:node`).
+
+**macOS par ek jaani-boojhi kami:** is workflow mein Apple code-signing /
+notarization nahi hai (iske liye Apple Developer account + certificates
+chahiye, jo humein nahi diye gaye). Matlab macOS users ko Gatekeeper ka
+"unidentified developer" warning milega pehli baar app kholne par — user ko
+System Settings → Privacy & Security se manually allow karna padega. Ye build
+ko kharab nahi karta, bas ek extra click add karta hai.
+
+`download-widget.html` — apni website (manzil.bond) par laga sakte hain,
+GitHub Releases se khud latest version detect kar ke visitor ke OS ke
+hisaab se sahi download button dikhata hai (koi backend nahi chahiye).
 
 ---
 

@@ -42,12 +42,11 @@ pub const APP_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 pub const HOMEPAGE_URL: &str = "https://manzil.bond";
 
-/// TODO: ye placeholder hai. Real releases page/GitHub URL yahan daalein —
-/// "Check for updates" button isi ko browser mein kholta hai. Koi automatic
-/// version-check nahi hai (uske liye signing keys + release feed chahiye,
-/// jo abhi maujood nahi) — is liye sirf link-out hai, jhooti "up to date"
-/// wali baat nahi dikhata.
-pub const UPDATE_CHECK_URL: &str = "https://manzil.bond";
+/// Asal auto-update ab `tauri-plugin-updater` se hoti hai (About page ka
+/// "Check for updates" button) — ye URL sirf fallback hai jab app Tauri ke
+/// baghair chal rahi ho (`pnpm dev`, browser preview), jahan updater plugin
+/// kaam nahi karta.
+pub const UPDATE_CHECK_URL: &str = "https://github.com/dashingmza/manzil/releases";
 
 #[derive(Serialize, Clone)]
 pub struct RuntimeInfo {

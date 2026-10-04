@@ -100,7 +100,14 @@
     "homepage": "Website",
     "checkUpdates": "Check for updates",
     "updateNote": "Opens your browser to check for the latest version.",
-    "description": "Manzil lets Claude Code use NVIDIA NIM models through a local proxy — no data leaves your machine except the model calls themselves."
+    "description": "Manzil lets Claude Code use NVIDIA NIM models through a local proxy — no data leaves your machine except the model calls themselves.",
+    "checking": "Checking…",
+    "upToDate": "You're on the latest version.",
+    "updateAvailable": "Update {version} is available.",
+    "downloadInstall": "Download & Install",
+    "installing": "Downloading & installing…",
+    "installed": "Installed — restart to apply.",
+    "restart": "Restart now"
   },
   "donate": {
     "title": "Support Manzil",

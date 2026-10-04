@@ -10,6 +10,49 @@ chhote bullets. Poore paragraphs nahi.
 
 ---
 
+## 2026-10-03 — Real auto-update, GitHub release workflow, download widget, RELEASES.md
+
+- **tauri.conf.json merge-fix:** user ne reference file di (Jadoo project se
+  adapt ki hui) — uski JSON invalid thi (missing comma bundle/plugins ke
+  beech). Fix kar ke merge kiya: `publisher`/`category`
+  (`"Video"` → `"DeveloperTool"`, galat thi) /`shortDescription`/
+  `longDescription`/`copyright`/`createUpdaterArtifacts: true`.
+- **Real auto-update wired:** `tauri-plugin-updater` +
+  `tauri-plugin-process` (Cargo.toml + main.rs + capabilities
+  `updater:default`/`process:allow-restart` + package.json JS packages).
+  About page poora state-machine ban gaya: checking → up-to-date /
+  available (version + Download&Install) → installing → installed
+  (Restart now). Tauri ke baghair `pnpm dev` mein releases page khulta hai.
+  **CRITICAL: `tauri.conf.json` ka `pubkey` abhi
+  `REPLACE_WITH_YOUR_OWN_GENERATED_PUBLIC_KEY` hai** — user ki uploaded
+  file mein Jadoo project ki real pubkey thi, wo copy NAHI ki (kisi aur ki
+  security key reuse karna galat hota — verification kabhi match nahi
+  karti). User ko `pnpm tauri signer generate` khud chalana hoga
+  (`RELEASES.md` mein poora process).
+- **`.github/workflows/release.yml`** naya — reference `release.yml`
+  (Jadoo se, ffmpeg/ffprobe sidecar fetch karta tha) se adapt kiya: ffmpeg
+  wala hissa hata diya (hamare paas nahi hai), uski jagah `pnpm fetch:node`
+  (hamara apna Node-sidecar script) — 4-platform matrix (win/linux/macos
+  intel+arm) waisa hi rakha.
+- **`download-widget.html`** naya — reference widget (Jadoo/jadoo.bond ke
+  liye) ko Manzil branding + GitHub `dashingmza/manzil` ke liye adapt kiya.
+  GitHub Releases API se khud latest version + OS-specific download button.
+- **`RELEASES.md`** naya — signing-key setup steps, release-cutting
+  process, aur v1.0.0 changelog entry.
+- **Root `.gitignore`** user ki di hui file se merge kiya
+  (`*.tsbuildinfo`, `Thumbs.db`, `.env*` add hue).
+- **3 platforms ka honest assessment user ko diya:** Windows/macOS/Linux
+  teeno par architecture-wise kaam karega (sidecar naming, tray, context
+  menu, window config sab Tauri APIs se cross-platform hain, Windows-only
+  manifest code properly OS-gated hai) — **lekin macOS par code-signing/
+  notarization nahi hai** (Apple Developer account nahi diya gaya), is liye
+  pehli baar kholne par Gatekeeper warning aayega.
+- **Verify NAHI kar saka:** updater plugin ka poora flow (check/download/
+  install/relaunch) — na Rust compile hua na asal GitHub release bana. Pehli
+  real release ke baad hi pata chalega.
+
+---
+
 ## 2026-09-30 — Fixed window size, custom Windows manifest, sidebar collapse, active-item accent color
 
 - **donation.ts:** user ne trimmed list di (ab sirf 7 USDT network entries,

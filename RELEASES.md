@@ -80,7 +80,7 @@ Publish hote hi:
 
 ## Changelog
 
-### v1.1.0 — 2026
+### v1.0.1 — 2026
 
 - Real auto-update (`tauri-plugin-updater` + `tauri-plugin-process`) —
   About page ab check/download/install/restart khud karta hai

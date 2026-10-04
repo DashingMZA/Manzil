@@ -50,12 +50,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: pnpm
 
-      - name: Verify Node and pnpm
-        run: |
-          node --version
-          pnpm --version
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable

@@ -23,6 +23,11 @@ on:
       - "v*"
   workflow_dispatch: {}
 
+# Release create/upload karne ke liye zaroori hai, warna tauri-action
+# "Resource not accessible by integration" jaisi permission error de sakta hai.
+permissions:
+  contents: write
+
 jobs:
   release:
     strategy:

@@ -95,6 +95,17 @@ Version numbering: **sequential patch bumps** — 1.0.1, 1.0.2, 1.0.3 ... Har
 release par teeno files (`package.json`, `src-tauri/tauri.conf.json`,
 `src-tauri/Cargo.toml`) mein version exactly same rakhein aur 1 badhayein.
 
+### v1.0.5 — 2026
+
+- **Crate/npm version mismatch ka asal hal:** pichli dafa Cargo.toml mein
+  haath se `~2.4`/`~2.6` pin kiye the — galat tareeqa tha, kyunki NPM side
+  khud `^` se float karti hai (aapki lock mein `plugin-fs` 2.7.0 aaya).
+  Ab `scripts/sync-tauri-versions.mjs` Cargo.toml ke Tauri crates ko
+  `node_modules` ke ASAL install hue versions (`~MAJOR.MINOR`) par khud set
+  karta hai. `pnpm app:dev` / `pnpm app:build` isay khud chalate hain, CI mein
+  alag step hai, haath se `pnpm sync:tauri`
+- Haath se pin wale comments Cargo.toml se hata diye
+
 ### v1.0.4 — 2026
 
 - **CI (teeno platforms):** `tauri build` ne Rust crates aur NPM packages ke

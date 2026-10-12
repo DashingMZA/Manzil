@@ -103,9 +103,14 @@ dein, lekin decisions aur unresolved TODOs kabhi mat hataayein.
   `include_str!` se embed kar ke `tray.show`/`tray.quit` padhta hai
   (`src-tauri/src/tray.rs`) — alag Rust translation table nahi.
 - **Tauri plugins: Rust crate aur NPM package ka major.minor same hona
-  chahiye** — `tauri build` mismatch par fail hota hai. Cargo.lock nahi hai,
-  to bina pin ke cargo latest utha leta hai. `package.json` mein plugin ka
-  minor badle ya naya plugin add ho to `Cargo.toml` mein bhi `~X.Y` se
-  pin karein.
+  chahiye** — `tauri build`/`dev` mismatch par fail hota hai. Cargo.lock nahi
+  hai aur NPM side `^` se float karti hai, to dono alag latest utha lete
+  hain. **Cargo.toml mein Tauri crate versions haath se pin NA karein** (ek
+  baar kiya tha, galat nikla) — `scripts/sync-tauri-versions.mjs` unhein
+  `node_modules` ke asal versions se `~X.Y` par set karta hai
+  (`app:dev`/`app:build` aur `release.yml` chalate hain; haath se
+  `pnpm sync:tauri`). Naya Tauri plugin add karo to NPM package aur Cargo
+  crate dono add karo (naam mapping: `@tauri-apps/plugin-X` ->
+  `tauri-plugin-X`) — sync script baaki sambhal leta hai.
 - **`package.json` user ki di hui file hai** — dependency versions apni
   marzi se na badlein; sirf zaroorat par naye packages add karein.

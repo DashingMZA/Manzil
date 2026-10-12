@@ -10,6 +10,44 @@ chhote bullets. Poore paragraphs nahi.
 
 ---
 
+## 2026-10-12 — v1.0.5: crate/npm mismatch — asal wajah aur sahi fix
+
+- **User ki report:** v1.0.4 ke baad bhi wahi mismatch error. User ne
+  `pnpm install` kiya to lock mein `plugin-fs` specifier `^2.6.0` ->
+  version **2.7.0** aaya, aur poocha "kyun".
+- **Jawab / meri galti:** `^2.6.0` ka matlab "2.6.0 ya us se naya 2.x" — pnpm
+  newest utha leta hai. v1.0.4 mein maine Cargo.toml mein CI ke us din ke
+  npm versions (shell 2.4, fs 2.6) dekh kar `~2.4`/`~2.6` pin kar diye the —
+  yani npm ko "fixed" maan liya, jab ke wo bhi float karta hai. User ke
+  local lock mein ab 2.7.0 hai, to pin ulta mismatch banata. Pin kisi ek din
+  ka snapshot tha.
+- **CI mein pehle npm 2.6.0 kyun mila (pakka nahi):** do mumkin wajahein —
+  repo mein purani committed lock (frozen install) ya pnpm ka
+  release-age delay (naye publish hue version kuch ghante/din nahi uthata).
+  Yahan se dekh nahi sakta, dono ka ilaaj ek hi hai: Cargo ko npm ke asal
+  install hue version ke peeche chalao.
+- **Fix:** naya `scripts/sync-tauri-versions.mjs` —
+  `node_modules/@tauri-apps/*/package.json` se version padh kar
+  `src-tauri/Cargo.toml` ke matching crate (`api`->`tauri`,
+  `plugin-X`->`tauri-plugin-X`) ko `~MAJOR.MINOR` par set karta hai;
+  single-instance (npm package nahi) ko nahi chheda. Sandbox mein nakli
+  node_modules se test kiya: align hota hai, dobara chalane par no-op,
+  node_modules na ho to saaf error. `package.json` scripts: `app:dev`,
+  `app:build` pehle sync chalate hain; naya `sync:tauri`. `release.yml`
+  mein `pnpm install` ke baad alag step (tauri-action `pnpm tauri build`
+  seedha chalata hai, `app:build` nahi). Cargo.toml se haath wali pins hatayin.
+- **User ki `package.json` mein sirf `scripts` badli** (do script ke aage
+  sync + ek naya `sync:tauri`) — dependencies nahi.
+- **Limit:** agar user `pnpm tauri dev/build` seedha chalaye (app:* nahi) to
+  sync nahi chalta. Aur crate ka wo `~X.Y` version crates.io par maujood
+  hona chahiye (npm crate se aage ho to cargo error dega).
+- **Zaroori salah user ko:** `pnpm-lock.yaml` repo mein commit karein
+  (zip mein nahi di — user ki apni hai) taake CI aur local same npm versions
+  uthayein.
+- Version 1.0.4 -> **1.0.5**.
+
+---
+
 ## 2026-10-12 — v1.0.4: crate/npm version mismatch + Windows tar
 
 - **CI (teeno platforms) — `tauri build` rukti hai:** "Found version

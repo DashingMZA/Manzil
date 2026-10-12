@@ -95,6 +95,19 @@ Version numbering: **sequential patch bumps** — 1.0.1, 1.0.2, 1.0.3 ... Har
 release par teeno files (`package.json`, `src-tauri/tauri.conf.json`,
 `src-tauri/Cargo.toml`) mein version exactly same rakhein aur 1 badhayein.
 
+### v1.0.4 — 2026
+
+- **CI (teeno platforms):** `tauri build` ne Rust crates aur NPM packages ke
+  versions mismatch par roka (`tauri-plugin-shell` crate 2.5.0 vs npm 2.4.0,
+  `tauri-plugin-fs` crate 2.7.0 vs npm 2.6.0). `Cargo.toml` mein dono crates
+  NPM ke minor par pin kiye (`~2.4`, `~2.6`)
+- **Windows local build:** `fetch-node.mjs` ab system ka bsdtar
+  (`System32\tar.exe`) use karta hai — Git ka GNU tar `C:\...` ko remote
+  host samajhta tha ("Cannot connect to C: resolve failed") aur `.zip`
+  extract bhi nahi kar sakta. PowerShell `Expand-Archive` fallback bhi hai
+- Purani `pnpm-lock.yaml` zip se hata di (aapki `package.json` se match nahi
+  karti thi) — apni lockfile repo mein rakhein
+
 ### v1.0.3 — 2026
 
 GitHub Actions release build ki teeno platforms par failures theek kin:

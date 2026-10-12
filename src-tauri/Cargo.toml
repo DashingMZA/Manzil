@@ -1,6 +1,6 @@
 [package]
 name = "Manzil"
-version = "1.0.2"
+version = "1.0.3"
 description = "NVIDIA NIM -> Claude Code proxy control panel"
 authors = ["Zaheer Ahmad"]
 homepage = "https://manzil.bond"
@@ -15,10 +15,15 @@ tauri-build = { version = "2", features = [] }
 tauri = { version = "2", features = ["tray-icon"] }
 tauri-plugin-single-instance = "2"
 tauri-plugin-sql = { version = "2", features = ["sqlite"] }
-tauri-plugin-shell = "2"
+# NPM package ke saath same major.minor hona zaroori hai (`tauri build` check
+# karta hai). Cargo.lock nahi hai, is liye bina pin ke cargo hamesha latest
+# 2.x utha leta hai jo NPM se aage nikal sakta hai — isi se CI fail hui thi
+# (crate shell 2.5.0 vs npm 2.4.0, fs 2.7.0 vs 2.6.0). package.json ka minor
+# badle to yahan bhi badlein.
+tauri-plugin-shell = "~2.4"
 tauri-plugin-opener = "2"
 tauri-plugin-dialog = "2"
-tauri-plugin-fs = "2"
+tauri-plugin-fs = "~2.6"
 tauri-plugin-clipboard-manager = "2"
 tauri-plugin-updater = "2"
 tauri-plugin-process = "2"

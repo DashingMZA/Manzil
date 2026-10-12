@@ -10,6 +10,32 @@ chhote bullets. Poore paragraphs nahi.
 
 ---
 
+## 2026-10-12 — v1.0.4: crate/npm version mismatch + Windows tar
+
+- **CI (teeno platforms) — `tauri build` rukti hai:** "Found version
+  mismatched Tauri packages": `tauri-plugin-shell` crate 2.5.0 vs
+  `@tauri-apps/plugin-shell` 2.4.0, `tauri-plugin-fs` crate 2.7.0 vs npm
+  2.6.0. Wajah: Cargo.lock nahi (user ka instruction) + `"2"` requirement =
+  cargo hamesha latest. Fix: `Cargo.toml` mein `~2.4` / `~2.6` pin (user ki
+  `package.json` ko haath nahi lagaya — wo user ki hai). Baaki plugins
+  report nahi hue, to abhi match karte hain, lekin future mein drift ho sakta
+  hai — `CLAUDE.md` mein rule likha. **Verify nahi:** crates ke 2.4.x/2.6.x
+  versions registry mein maujood hone ki ummeed hai (plugins-workspace npm aur
+  crate saath release karta hai) — na ho to cargo "no matching version" dega,
+  tab npm side upar uthani hogi.
+- **Windows local — `tar: Cannot connect to C: resolve failed`:** PATH mein
+  Git ka GNU tar pehle tha: wo `C:\` ko `host:path` samajhta hai aur `.zip`
+  extract hi nahi kar sakta. `fetch-node.mjs`: Windows par
+  `%SystemRoot%\System32\tar.exe` (bsdtar), archive ka sirf naam + `cwd =
+  tmpDir`, aur PowerShell `Expand-Archive` fallback. Non-Windows par relative
+  archive extraction sandbox mein test ki. **Windows par asli run nahi hua.**
+- **Purani `pnpm-lock.yaml` zip se hata di:** wo mere zip mein user ki naye
+  package.json se pehle ki thi (autostart/opener wagera nahi), user ke repo ki
+  lock ko overwrite kar deti.
+- Version 1.0.3 -> **1.0.4**.
+
+---
+
 ## 2026-10-12 — v1.0.3: GitHub Actions ki teeno platform failures
 
 User ne CI ke 4 screenshots bheje (macOS x2, Ubuntu, Windows) — teen alag

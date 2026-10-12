@@ -102,5 +102,10 @@ dein, lekin decisions aur unresolved TODOs kabhi mat hataayein.
   (5 languages) mein. Tray menu bhi: Rust side `src/locales/*.json` ko
   `include_str!` se embed kar ke `tray.show`/`tray.quit` padhta hai
   (`src-tauri/src/tray.rs`) — alag Rust translation table nahi.
+- **Tauri plugins: Rust crate aur NPM package ka major.minor same hona
+  chahiye** — `tauri build` mismatch par fail hota hai. Cargo.lock nahi hai,
+  to bina pin ke cargo latest utha leta hai. `package.json` mein plugin ka
+  minor badle ya naya plugin add ho to `Cargo.toml` mein bhi `~X.Y` se
+  pin karein.
 - **`package.json` user ki di hui file hai** — dependency versions apni
   marzi se na badlein; sirf zaroorat par naye packages add karein.

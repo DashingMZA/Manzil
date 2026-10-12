@@ -98,18 +98,57 @@ if (!res.ok) {
 await pipeline(res.body, createWriteStream(archivePath));
 
 console.log("Extracting...");
-// System `tar` cross-platform kaam karta hai: macOS/Linux par native, aur
-// Windows 10 (1803+) ke bundled bsdtar `.zip` bhi extract kar sakta hai —
-// is liye koi extra npm dependency nahi chahiye.
-try {
-  execFileSync("tar", ["-xf", archivePath, "-C", tmpDir], { stdio: "inherit" });
-} catch (e) {
-  console.error(
-    "`tar` command chalane mein masla hua. Windows par ye sirf 1803+ mein\n" +
-      "built-in hota hai. Manually extract kar ke, node.exe ko yahan copy\n" +
-      `kar dein: ${outPath}`,
+
+// Windows par PATH mein pehle Git ka GNU tar aa sakta hai (Git Bash install
+// ho to). GNU tar do cheezon mein fail hota hai: (1) "C:\\..." ko "host:path"
+// (remote) samajh leta hai ("Cannot connect to C: resolve failed"), aur
+// (2) .zip extract kar hi nahi sakta. Is liye Windows par seedha system ka
+// bsdtar (`System32\\tar.exe`) use karte hain, aur archive ka sirf naam dete
+// hain (cwd = tmpDir) taake koi drive-letter wala path tar tak pahunche hi nahi.
+function tarCommand() {
+  if (isWindows) {
+    const sysTar = path.join(process.env.SystemRoot || "C:\\Windows", "System32", "tar.exe");
+    if (existsSync(sysTar)) return sysTar;
+  }
+  return "tar";
+}
+
+function extractWithPowerShell() {
+  execFileSync(
+    "powershell.exe",
+    [
+      "-NoProfile",
+      "-Command",
+      "Expand-Archive -LiteralPath $env:MANZIL_ARCHIVE -DestinationPath $env:MANZIL_DEST -Force",
+    ],
+    {
+      stdio: "inherit",
+      env: { ...process.env, MANZIL_ARCHIVE: archivePath, MANZIL_DEST: tmpDir },
+    },
   );
-  throw e;
+}
+
+try {
+  execFileSync(tarCommand(), ["-xf", archiveName], { stdio: "inherit", cwd: tmpDir });
+} catch (e) {
+  if (isWindows) {
+    console.warn("tar fail hua — PowerShell Expand-Archive se try kar raha hoon...");
+    try {
+      extractWithPowerShell();
+    } catch (e2) {
+      console.error(
+        "Extract nahi ho saka. Manually extract kar ke, node.exe ko yahan copy\n" +
+          `kar dein: ${outPath}`,
+      );
+      throw e2;
+    }
+  } else {
+    console.error(
+      "`tar` command chalane mein masla hua. Manually extract kar ke, node binary ko yahan copy\n" +
+        `kar dein: ${outPath}`,
+    );
+    throw e;
+  }
 }
 
 const extractedDir = path.join(tmpDir, `node-v${NODE_VERSION}-${target.dist}`);

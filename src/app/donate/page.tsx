@@ -1,7 +1,7 @@
 "use client";
 
 import { writeText } from "@tauri-apps/plugin-clipboard-manager";
-import { open } from "@tauri-apps/plugin-shell";
+import { openUrl } from "@tauri-apps/plugin-opener";
 import { useState } from "react";
 
 import { Alert, Card } from "@/components/Field";
@@ -29,7 +29,7 @@ export default function DonatePage() {
 
   async function openLink(url: string) {
     try {
-      await open(url);
+      await openUrl(url);
     } catch (err) {
       setError(errorMessage(err));
     }

@@ -88,10 +88,19 @@ dein, lekin decisions aur unresolved TODOs kabhi mat hataayein.
 - Frontend `output: "export"` (static) rehna chahiye. Koi API route, koi SSR,
   koi server action add na karein — Tauri Node server nahi chalata.
 - **Har delivery ke saath version 3 jagah sync honi chahiye** (user ka
-  standing instruction, 2026-10-04 se): `package.json`, `src-tauri/tauri.conf.json`,
-  `src-tauri/Cargo.toml` — teeno mein exactly same version string. Chhoti
-  fixes = patch bump (1.1.0 → 1.1.1), nayi features = minor (1.1.0 → 1.2.0).
-  `src-tauri/Cargo.lock` ki apni `name = "Manzil"` entry bhi saath mein sync
-  karein (warna agli build par khud-ba-khud update ho jayegi, lekin sync
-  rakhna cleaner hai). `RELEASES.md` ke changelog mein entry add karna na
-  bhoolein.
+  standing instruction): `package.json`, `src-tauri/tauri.conf.json`,
+  `src-tauri/Cargo.toml` — teeno mein exactly same version string.
+  **Hamesha sirf patch number +1** (1.0.2 → 1.0.3 → 1.0.4 ...) — change
+  chhota ho ya bada, minor/major kabhi na badhayein (user ne explicitly
+  kaha: 1.0.1 se shuru, har baar 1 aage). `RELEASES.md` changelog mein har
+  version ki entry add karna na bhoolein.
+- **`src-tauri/Cargo.lock` repo/zip mein NAHI dena** (user ka instruction —
+  cargo khud banata hai run/install par). Gitignored hai.
+- **Bundle identifier hamesha `com.csofts.manzil`** (`tauri.conf.json`).
+  Kabhi badalna nahi.
+- **UI ka koi bhi text hardcoded nahi** — har string `src/locales/*.json`
+  (5 languages) mein. Tray menu bhi: Rust side `src/locales/*.json` ko
+  `include_str!` se embed kar ke `tray.show`/`tray.quit` padhta hai
+  (`src-tauri/src/tray.rs`) — alag Rust translation table nahi.
+- **`package.json` user ki di hui file hai** — dependency versions apni
+  marzi se na badlein; sirf zaroorat par naye packages add karein.

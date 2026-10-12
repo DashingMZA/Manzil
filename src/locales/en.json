@@ -87,7 +87,10 @@
     "bundledMissing": "Bundled Node not staged (expected {filename}). Run `pnpm fetch:node` before building, or fill in a custom path below to use a system-installed Node.",
     "modelHint": "**{count}** verified models. Every model here is checked against NVIDIA's own working example — no live catalog fetch.",
     "themeCardTitle": "Color theme",
-    "themeHint": "Pick the accent color used across the app."
+    "themeHint": "Pick the accent color used across the app.",
+    "autostartCardTitle": "Startup",
+    "autostartLabel": "Launch Manzil when my computer starts",
+    "autostartHint": "Starts hidden in the system tray — open it anytime from the tray icon."
   },
   "modelPicker": {
     "selectPlaceholder": "— select a model —",
@@ -144,5 +147,9 @@
   "sidebar": {
     "collapse": "Collapse",
     "expand": "Expand"
+  },
+  "tray": {
+    "show": "Show Manzil",
+    "quit": "Quit Manzil"
   }
 }

@@ -5,7 +5,6 @@ import { createContext, useContext, type ReactNode } from "react";
 import { useProxy } from "@/hooks/useProxy";
 import { ContextMenu } from "./ContextMenu";
 import { Sidebar } from "./Sidebar";
-import { WindowReveal } from "./WindowReveal";
 
 type ProxyContext = ReturnType<typeof useProxy>;
 
@@ -23,7 +22,6 @@ export function AppShell({ children }: { children: ReactNode }) {
       <Sidebar running={proxy.running} />
       <main>{children}</main>
       <ContextMenu />
-      <WindowReveal />
     </Ctx.Provider>
   );
 }

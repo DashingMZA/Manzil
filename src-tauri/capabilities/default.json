@@ -9,9 +9,10 @@
     "dialog:allow-open",
     "dialog:allow-message",
     "fs:allow-exists",
-    "shell:allow-open",
     "updater:default",
     "process:allow-restart",
+    "autostart:default",
+    "opener:default",
     {
       "identifier": "shell:allow-execute",
       "allow": [

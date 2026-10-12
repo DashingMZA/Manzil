@@ -135,7 +135,9 @@ a {
   display: flex;
   gap: 10px;
   align-items: center;
-  padding: 0 6px 20px;
+  padding: 0 6px 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--line);
 }
 
 .sidebar.collapsed .brand {
@@ -155,8 +157,27 @@ a {
   border-radius: 8px;
 }
 
+.brand-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.brand-name-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 .brand-name {
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.brand-version {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
 }
 
 .brand-sub {
@@ -198,41 +219,56 @@ nav {
   font-weight: 600;
 }
 
+/* Sidebar ka neeche wala hissa — upar se neeche: mode toggle, status,
+   divider, collapse button. `margin-top: auto` poore group ko neeche
+   dhakel deta hai. */
+.sidebar-bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.sidebar.collapsed .sidebar-foot {
+  justify-content: center;
+  padding-inline: 0;
+}
+
+.sidebar-divider {
+  height: 1px;
+  margin-bottom: 10px;
+  background: var(--line);
+}
+
 .collapse-btn {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin: 6px 0 10px;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
   padding: 8px 12px;
-  border: 0;
+  border: 1px solid var(--line);
   border-radius: 8px;
   background: transparent;
-  color: var(--muted);
+  color: var(--text);
   font: inherit;
-  font-size: 12px;
+  font-size: 12.5px;
+  font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
 }
 
 .collapse-btn:hover {
   background: var(--panel-2);
-  color: var(--text);
-}
-
-.sidebar.collapsed .collapse-btn {
-  justify-content: center;
-  padding-inline: 0;
-}
-
-.sidebar-foot {
-  margin-top: 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 12px;
-  font-size: 12px;
-  color: var(--muted);
-  border-top: 1px solid var(--line);
+  border-color: var(--line-strong);
 }
 
 .dot {
@@ -712,7 +748,6 @@ code {
 /* ---------------- light / dark / system toggle ---------------- */
 
 .mode-toggle {
-  margin-top: auto;
   display: flex;
   gap: 4px;
   padding: 4px;
@@ -745,7 +780,6 @@ code {
 }
 
 .mode-btn-single {
-  margin-top: auto;
   margin-bottom: 10px;
   width: 100%;
   padding: 9px 0;
@@ -834,4 +868,34 @@ code {
   height: 1px;
   margin: 5px 4px;
   background: var(--line);
+}
+
+/* ---------------- checkbox row (Settings → Startup) ---------------- */
+
+.check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.check-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--accent);
+  flex: none;
+  cursor: pointer;
+}
+
+.check-label {
+  display: block;
+  font-weight: 500;
+}
+
+.check-hint {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
 }

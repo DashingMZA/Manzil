@@ -9,6 +9,7 @@ import {
 } from "react";
 
 import { loadLocale, saveLocaleSetting } from "@/lib/db";
+import { setTrayLocale } from "@/lib/tauri";
 import {
   locales,
   RTL_LOCALES,
@@ -40,11 +41,16 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<LocaleCode>("en");
 
   // Persisted locale load hone tak "en" dikhta hai — blocking nahi karte,
-  // taake app khulte hi blank screen na aaye.
+  // taake app khulte hi blank screen na aaye. Load hote hi tray menu
+  // (Rust side) ko bhi isi locale par sync kar dete hain — warna tray
+  // hamesha English hi dikhata rehta jab tak user khud language na badle.
   useEffect(() => {
     loadLocale()
       .then((saved) => {
-        if (isLocaleCode(saved)) setLocaleState(saved);
+        if (isLocaleCode(saved)) {
+          setLocaleState(saved);
+          setTrayLocale(saved).catch(() => {});
+        }
       })
       .catch(() => {
         /* Tauri ke baghair (plain `pnpm dev`) — default "en" par rehna theek hai */
@@ -62,6 +68,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     saveLocaleSetting(next).catch(() => {
       /* best-effort — UI turant switch ho chuki hai, save fail bhi ho to koi crash nahi */
     });
+    setTrayLocale(next).catch(() => {});
   }
 
   function t(key: string): string {

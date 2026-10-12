@@ -21,7 +21,7 @@ import os from "node:os";
 
 // LTS version — proxy.js sirf Node 20+ ka built-in `fetch` maangta hai, is
 // se zyada kuch nahi. Badalna ho to bas ye string badal dein.
-const NODE_VERSION = "24.21.0";
+const NODE_VERSION = "24.19.0";
 
 const PLATFORM_MAP = {
   "win32-x64": {

@@ -10,6 +10,68 @@ chhote bullets. Poore paragraphs nahi.
 
 ---
 
+## 2026-10-05 — v1.0.2: sidebar layout fix, tray i18n, window-show bug, single-instance, autostart, .env
+
+- **Version scheme (user ne explicitly durust kiya):** pehle maine
+  galti se 1.1.0 / 1.2.0 jaisa minor jump kiya. User ka rule: **1.0.1 se
+  shuru, har baar sirf patch +1** (1.0.2, 1.0.3 ...). Ab **1.0.2** hai, teeno
+  jagah sync. `CLAUDE.md` rule isi hisaab se likha, `RELEASES.md` changelog
+  dobara likhi (v1.0.1 pehla release, v1.0.2 ye).
+- **package.json:** user ki di hui file as-is (naye deps: plugin-autostart,
+  plugin-opener, dotenv-cli devDep; naye versions). `app:build` =
+  `dotenv -e .env -- tauri build`. Meri taraf se sirf `version` badla.
+- **Cargo.lock hata diya** (zip + repo se; `src-tauri/.gitignore` mein
+  add) — user ka instruction. Wajah bhi: naye deps (autostart, opener,
+  single-instance) ke baad purani lock stale thi aur sandbox mein cargo nahi
+  jo regenerate kare. Trade-off: app ke liye lockfile na commit karne se CI
+  builds reproducible nahi rehtin (har run par naye transitive versions).
+- **identifier = `com.csofts.manzil`** (tauri.conf.json), hamesha yahi.
+  **Asar:** identifier badalne se OS app-data folder badal jata hai —
+  `bond.manzil.app` wale build ki saved settings naye build mein nahi milengi.
+- **`.env.example`** user ki di hui reference se banayi (Windows path example
+  generic `YourName` kiya). `.env` pehle se gitignored.
+- **Sidebar layout (video reference se):** video mein "Jadoo" app ki
+  recording thi — asli bug ye tha ke maine collapse button nav ke turant baad
+  (beech mein) rakha tha. Ab: nav → spacer → `.sidebar-bottom` group
+  (mode toggle → status → divider line → collapse button, sab sabse neeche).
+  Collapsed mein mode toggle 1 button, status sirf dot, collapse sirf chevron.
+- **Top par version + line (screenshot se):** brand row mein naam ke saath
+  `v{app_version}` (monospace, muted), neeche `border-bottom` line.
+  Version `runtimeInfo()` (Cargo.toml) se aata hai. Collapsed mein hidden.
+- **Window-show bug ki jad:** pehle `visible: false` + JS-side
+  `WindowReveal.tsx` window dikhata tha — JS mein koi bhi silent failure
+  ho to window kabhi nahi dikhti thi. Ab Rust `setup()` mein seedha
+  `show_main_window()` (sirf `--hidden` arg par skip — jo autostart system
+  boot par deta hai). `WindowReveal.tsx` delete kiya. `ThemeProvider.ready`
+  flag rakha (ab unused, comment update). Trade-off: window JS theme load
+  hone se pehle dikh sakti hai (ek pal ka default-theme flash).
+- **Single-instance:** `tauri-plugin-single-instance` (sabse pehla plugin) —
+  doosri launch par pehli instance ki window `show_main_window` se saamne
+  aati hai. Pehle doosra process chalta tha (port clash).
+- **Tray i18n (user ka "sab kuch locales mein" rule):** naya
+  `src-tauri/src/tray.rs` — 5 locale JSON `include_str!` se embed, `tray.show`
+  / `tray.quit` keys padhta hai (English fallback), `MenuItem` handles
+  `TrayState` mein, `set_tray_locale` command. `I18nProvider` initial load +
+  har `setLocale` par call karta hai. Alag Rust translation table nahi.
+  Tooltip "Manzil" brand name hai (translate nahi hota).
+- **Autostart:** `tauri-plugin-autostart` (LaunchAgent, args `--hidden`),
+  Settings mein "Startup" checkbox, state OS se (`isEnabled()`), SQLite se nahi.
+- **Opener:** About/Donate ab `@tauri-apps/plugin-opener`'s `openUrl`.
+  `shell:allow-open` permission hata di (least privilege); `shell:allow-execute`
+  Node sidecar ke liye rakhi. `@tauri-apps/plugin-shell` JS package user ki
+  package.json mein hai magar JS mein ab import nahi hota (Rust side plugin
+  sidecar ke liye zaroori hai).
+- **Verify NAHI kar saka (sandbox mein Rust/Windows nahi):** `tray.rs`
+  (`MenuItem<Wry>` storage, `set_text`, `include_str!` path
+  `../../src/locales`), single-instance closure signature, autostart
+  `init(MacosLauncher, Some(vec!["--hidden"]))` signature, `opener:default`/
+  `autostart:default` permission names, `--hidden` arg autostart plugin
+  sach mein pass karta hai ya nahi, sidebar ka asli visual (sirf video se
+  match kiya, screen par nahi dekha). Cargo.lock na hone se pehli build par
+  network chahiye.
+
+---
+
 ## 2026-10-04 — Version sync rule (standing instruction) + v1.1.0 bump
 
 - **User ka standing instruction:** "ab se package version bhi update kar ke

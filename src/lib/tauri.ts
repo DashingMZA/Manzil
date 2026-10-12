@@ -52,6 +52,10 @@ export const startProxy = (args: {
 
 export const stopProxy = () => requireTauri(() => invoke<void>("stop_proxy"));
 
+/** Tray menu ("Show Manzil" / "Quit Manzil") ki language badalta hai. */
+export const setTrayLocale = (locale: string) =>
+  requireTauri(() => invoke<void>("set_tray_locale", { locale }));
+
 // ======================================================
 // EVENTS
 // ======================================================

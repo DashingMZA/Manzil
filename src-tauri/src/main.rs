@@ -2,9 +2,8 @@
 
 mod config;
 mod proxy;
+mod tray;
 
-use tauri::menu::{Menu, MenuItem, PredefinedMenuItem};
-use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent};
 use tauri::{Manager, WindowEvent};
 use tauri_plugin_sql::{Migration, MigrationKind};
 
@@ -54,29 +53,41 @@ fn migrations() -> Vec<Migration> {
     ]
 }
 
-/// Hidden/minimized window ko wapas saamne lao (tray click ya "Show" menu se).
-fn show_main_window(app: &tauri::AppHandle) {
-    if let Some(window) = app.get_webview_window("main") {
-        let _ = window.unminimize();
-        let _ = window.show();
-        let _ = window.set_focus();
-    }
-}
-
 fn main() {
     tauri::Builder::default()
+        // Single-instance hamesha SABSE PEHLE register hona chahiye (Tauri
+        // ki apni recommendation) — doosri baar app launch hone par (user
+        // ne dobara icon/shortcut click kiya) ye hamari pehli, already
+        // running instance ko signal bhejta hai, jo window ko saamne le
+        // aati hai. Isi se "jab bhi tool open karun to active window show
+        // ho" wala masla fix hota hai — warna doosra process khud start ho
+        // jata (aur proxy port clash karta).
+        .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
+            tray::show_main_window(app);
+        }))
         .plugin(
             tauri_plugin_sql::Builder::default()
                 .add_migrations("sqlite:manzil.db", migrations())
                 .build(),
         )
         .plugin(tauri_plugin_shell::init())
+        .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_clipboard_manager::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_process::init())
+        // Autostart: system boot par `--hidden` arg ke saath launch hota
+        // hai — setup() mein isay check kar ke window show nahi karte,
+        // seedha tray mein chup chaap chali jati hai (background utility
+        // jaisa behavior). Manual launch (double-click, Start Menu) is
+        // arg ke baghair hota hai, is liye window turant show hoti hai.
+        .plugin(tauri_plugin_autostart::init(
+            tauri_plugin_autostart::MacosLauncher::LaunchAgent,
+            Some(vec!["--hidden"]),
+        ))
         .manage(proxy::ProxyState::default())
+        .manage(tray::TrayState::default())
         .invoke_handler(tauri::generate_handler![
             config::runtime_info,
             proxy::check_node,
@@ -84,48 +95,27 @@ fn main() {
             proxy::proxy_status,
             proxy::start_proxy,
             proxy::stop_proxy,
+            tray::set_tray_locale,
         ])
-        // Tray: window band (X) karne par app quit nahi hoti — sirf chhup jati
-        // hai aur proxy background mein chalta rehta hai. Asal quit sirf tray
-        // menu ke "Quit" se hota hai.
         .setup(|app| {
-            let show = MenuItem::with_id(app, "show", "Show Manzil", true, None::<&str>)?;
-            let separator = PredefinedMenuItem::separator(app)?;
-            let quit = MenuItem::with_id(app, "quit", "Quit Manzil", true, None::<&str>)?;
-            let menu = Menu::with_items(app, &[&show, &separator, &quit])?;
+            tray::build(app)?;
 
-            let mut tray = TrayIconBuilder::with_id("manzil-tray")
-                .tooltip("Manzil")
-                .menu(&menu)
-                // Left click = window dikhao, right click = menu
-                .show_menu_on_left_click(false)
-                .on_menu_event(|app, event| match event.id.as_ref() {
-                    "show" => show_main_window(app),
-                    "quit" => {
-                        // Proxy process pehle band karo, phir app exit.
-                        proxy::kill_if_running(app);
-                        app.exit(0);
-                    }
-                    _ => {}
-                })
-                .on_tray_icon_event(|tray, event| {
-                    if let TrayIconEvent::Click {
-                        button: MouseButton::Left,
-                        button_state: MouseButtonState::Up,
-                        ..
-                    } = event
-                    {
-                        show_main_window(tray.app_handle());
-                    }
-                });
-
-            if let Some(icon) = app.default_window_icon() {
-                tray = tray.icon(icon.clone());
+            // Window `tauri.conf.json` mein `visible: false` hai — taake
+            // autostart (system boot) par chup-chaap tray mein chali jaye.
+            // Normal launch par yahan turant show karte hain, khud Rust
+            // side se — frontend/JS ke load hone ka wait nahi karte. Is se
+            // window "kabhi dikhti hi nahi" wala bug nahi aata, chahe JS
+            // mein koi silent error ho jaye.
+            let launched_hidden = std::env::args().any(|a| a == "--hidden");
+            if !launched_hidden {
+                tray::show_main_window(&app.handle());
             }
-            tray.build(app)?;
 
             Ok(())
         })
+        // Tray: window band (X) karne par app quit nahi hoti — sirf chhup
+        // jati hai aur proxy background mein chalta rehta hai. Asal quit
+        // sirf tray menu ke "Quit" se hota hai.
         .on_window_event(|window, event| match event {
             WindowEvent::CloseRequested { api, .. } => {
                 api.prevent_close();

@@ -1,6 +1,6 @@
 "use client";
 
-import { open } from "@tauri-apps/plugin-shell";
+import { openUrl } from "@tauri-apps/plugin-opener";
 import { useEffect, useState } from "react";
 
 import { Alert, Card } from "@/components/Field";
@@ -33,7 +33,7 @@ export default function AboutPage() {
 
   async function openLink(url: string) {
     try {
-      await open(url);
+      await openUrl(url);
     } catch (err) {
       setError(errorMessage(err));
     }

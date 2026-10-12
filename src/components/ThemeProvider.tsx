@@ -26,7 +26,7 @@ interface ThemeContextValue {
   setTheme: (theme: ThemeId) => void;
   mode: ColorMode;
   setMode: (mode: ColorMode) => void;
-  /** Saved theme/mode load ho chuki (ya fail ho chuki) — ab window dikhana safe hai. */
+  /** Saved theme/mode load ho chuki (ya fail ho chuki). */
   ready: boolean;
 }
 
@@ -38,10 +38,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
 
   // Saved prefs load karo (Tauri ke baghair — plain `pnpm dev` — default par
-  // rehna theek hai). `visible: false` window ke liye `ready` flag zaroori
-  // hai — window tabhi dikhani hai jab sahi theme load ho chuki ho, warna
-  // ek pal ke liye default (dark/green) theme flash hoti (dekhein
-  // WindowReveal.tsx).
+  // rehna theek hai). Window ab Rust side se turant show hoti hai
+  // (`main.rs` ka `setup()`) — JS prefs load hone ka wait nahi karti, is
+  // liye `ready` ab window-reveal ke liye nahi, sirf general state ke
+  // liye hai (future use ke liye rakha).
   useEffect(() => {
     Promise.allSettled([
       loadPref(THEME_KEY).then((v) => v && isThemeId(v) && setThemeState(v)),

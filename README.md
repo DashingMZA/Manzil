@@ -124,7 +124,18 @@ tab bharein jab koi specific/alag Node version use karni ho.
 - **Tray:** window ka X dabane se app quit nahi hoti — tray mein chali jati
   hai aur proxy background mein chalta rehta hai. Tray icon par left-click =
   window wapas, right-click = menu (Show / Quit). Sirf tray ke **Quit** se
-  asal exit hota hai (proxy bhi tab band hota hai).
+  asal exit hota hai (proxy bhi tab band hota hai). Menu ke labels selected
+  language mein hote hain — Rust side `src/locales/*.json` ko compile-time
+  embed karta hai aur frontend locale badalte hi `set_tray_locale` command
+  call karta hai, to tray bhi turant badal jata hai.
+- **Window show / single-instance:** normal launch par window Rust ke
+  `setup()` se turant dikhti hai (JS load hone ka intezar nahi). App
+  dobara kholne par (icon/shortcut) nayi copy nahi chalti — pehli wali ki
+  window saamne aati hai (`tauri-plugin-single-instance`).
+- **Launch at startup:** Settings → "Startup" checkbox
+  (`tauri-plugin-autostart`). System boot par app `--hidden` arg ke saath
+  chalti hai aur seedha tray mein jaati hai; manual launch par window
+  dikhti hai. Checkbox ki state SQLite se nahi, asal OS se padhi jati hai.
 - **Right-click menu:** browser ka default menu (Back/Refresh/Inspect...)
   band hai; uski jagah app ke pages ke links dikhte hain (aur text selected ho
   to Copy). Input fields mein native Cut/Copy/Paste menu barqarar hai.

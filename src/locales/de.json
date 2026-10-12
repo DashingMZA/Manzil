@@ -87,7 +87,10 @@
     "bundledMissing": "Gebündeltes Node nicht vorhanden (erwartet: {filename}). Führe vor dem Build `pnpm fetch:node` aus, oder gib unten einen eigenen Pfad an, um ein system-installiertes Node zu nutzen.",
     "modelHint": "**{count}** geprüfte Modelle. Jedes Modell wurde am funktionierenden NVIDIA-Beispiel geprüft — kein Live-Katalogabruf.",
     "themeCardTitle": "Farbthema",
-    "themeHint": "Wähle die Akzentfarbe für die gesamte App."
+    "themeHint": "Wähle die Akzentfarbe für die gesamte App.",
+    "autostartCardTitle": "Autostart",
+    "autostartLabel": "Manzil beim Start des Computers öffnen",
+    "autostartHint": "Startet versteckt im Infobereich — jederzeit über das Tray-Symbol zu öffnen."
   },
   "modelPicker": {
     "selectPlaceholder": "— Modell auswählen —",
@@ -144,5 +147,9 @@
   "sidebar": {
     "collapse": "Einklappen",
     "expand": "Ausklappen"
+  },
+  "tray": {
+    "show": "Manzil anzeigen",
+    "quit": "Manzil beenden"
   }
 }

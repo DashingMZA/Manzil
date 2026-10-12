@@ -23,6 +23,8 @@ export default function SettingsPage() {
   const [saveNote, setSaveNote] = useState<{ text: string; ok: boolean } | null>(null);
   const [nodeNote, setNodeNote] = useState<{ text: string; ok: boolean } | null>(null);
   const [bundled, setBundled] = useState<BundledNodeInfo | null>(null);
+  const [autostart, setAutostart] = useState<boolean | null>(null);
+  const [autostartError, setAutostartError] = useState<string | null>(null);
 
   // Node runtime card khulte hi khud pata chal jaye ke bundled Node
   // maujood hai ya nahi — user ko manually kuch dhoondna na pade.
@@ -31,6 +33,28 @@ export default function SettingsPage() {
       .then(setBundled)
       .catch(() => setBundled(null)); // Tauri ke baghair (browser preview) — chup chaap skip
   }, []);
+
+  // Autostart ki asal (OS-level) state — SQLite mein nahi, khud OS/plugin
+  // se poochte hain, warna agar user ne system settings se band kar diya
+  // ho to hamara saved flag jhooth bolta.
+  useEffect(() => {
+    import("@tauri-apps/plugin-autostart")
+      .then(({ isEnabled }) => isEnabled())
+      .then(setAutostart)
+      .catch(() => setAutostart(null)); // Tauri ke baghair — toggle hi nahi dikhayenge
+  }, []);
+
+  async function toggleAutostart(next: boolean) {
+    setAutostartError(null);
+    try {
+      const { enable, disable } = await import("@tauri-apps/plugin-autostart");
+      if (next) await enable();
+      else await disable();
+      setAutostart(next);
+    } catch (err) {
+      setAutostartError(errorMessage(err));
+    }
+  }
 
   async function save() {
     try {
@@ -189,6 +213,23 @@ export default function SettingsPage() {
           </div>
         </Field>
       </Card>
+
+      {autostart !== null ? (
+        <Card title={t("settings.autostartCardTitle")}>
+          <label className="check-row">
+            <input
+              type="checkbox"
+              checked={autostart}
+              onChange={(e) => toggleAutostart(e.target.checked)}
+            />
+            <span>
+              <span className="check-label">{t("settings.autostartLabel")}</span>
+              <small className="check-hint">{t("settings.autostartHint")}</small>
+            </span>
+          </label>
+          {autostartError ? <Alert>{autostartError}</Alert> : null}
+        </Card>
+      ) : null}
 
       <Card title={t("settings.languageCardTitle")}>
         <Field label={t("settings.languageLabel")}>

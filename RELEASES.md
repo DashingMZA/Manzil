@@ -52,17 +52,28 @@ badal dein.
 ## Naya release banane ka tareeqa
 
 ```bash
-# 1. Version badhayein — DO jagah, dono match honi chahiye:
-#    - package.json         "version"
-#    - src-tauri/Cargo.toml [package] version
-#    - src-tauri/tauri.conf.json "version" (ye bhi match karna chahiye)
+# 1. Version 1 se badhayein (1.0.2 -> 1.0.3) — TEENO jagah exactly same:
+#    - package.json                 "version"
+#    - src-tauri/Cargo.toml         [package] version
+#    - src-tauri/tauri.conf.json    "version"
+#    Cargo.lock commit nahi hoti (gitignored) — cargo khud banata hai.
 
-# 2. Commit + tag + push
+# 2. Commit + tag + push (tag = wahi version, aage "v" ke saath)
 git add -A
-git commit -m "Release v1.0.1"
-git tag v1.0.1
+git commit -m "Release v1.0.3"
+git tag v1.0.3
 git push origin main --tags
 ```
+
+### Local build (apni machine par installer banana)
+
+```bash
+cp .env.example .env     # phir .env mein apni signing key ka path daalein
+pnpm app:build           # dotenv-cli .env load karta hai, phir tauri build
+```
+
+`.env` kabhi commit nahi hoti. GitHub Actions `.env` use nahi karta — wo
+apne repo Secrets se keys leta hai.
 
 Tag push hote hi `.github/workflows/release.yml` khud chal jata hai:
 Windows + macOS (Intel aur Apple Silicon) + Linux — char builds parallel
@@ -80,19 +91,28 @@ Publish hote hi:
 
 ## Changelog
 
+Version numbering: **sequential patch bumps** — 1.0.1, 1.0.2, 1.0.3 ... Har
+release par teeno files (`package.json`, `src-tauri/tauri.conf.json`,
+`src-tauri/Cargo.toml`) mein version exactly same rakhein aur 1 badhayein.
+
+### v1.0.2 — 2026
+
+- Window ab launch par hamesha turant dikhti hai (Rust side se `setup()`
+  mein show) — pehle kabhi kabhi sirf tray mein chali jati thi
+- Single-instance: app dobara kholne par (icon/shortcut click) nayi copy
+  nahi chalti, pehli wali ki window saamne aa jati hai
+- Tray menu ("Show/Quit") ab selected language mein hai aur language badalte
+  hi tray bhi badal jata hai (locale files se, koi hardcoded text nahi)
+- "Launch at startup" toggle (Settings) — system boot par chup-chaap tray
+  mein start hota hai
+- Sidebar layout theek kiya: bottom mein mode toggle → status → line →
+  collapse button; top par app ka version + line
+- Links ab `tauri-plugin-opener` se khulte hain
+- Local `pnpm app:build` ab `.env` se signing keys leta hai
+  (`.env.example` dekhein)
+- Bundle identifier: `com.csofts.manzil`
+
 ### v1.0.1 — 2026
-
-- Real auto-update (`tauri-plugin-updater` + `tauri-plugin-process`) —
-  About page ab check/download/install/restart khud karta hai
-- GitHub Actions release workflow (`.github/workflows/release.yml`) —
-  tag push par 4-platform (Windows/macOS Intel+Apple Silicon/Linux) build
-- `download-widget.html` — manzil.bond ke liye standalone download widget
-- Fixed window size (1100x910, non-resizable), custom Windows manifest
-  (Common-Controls v6)
-- Sidebar collapse/expand, active-page accent color
-- Donate page ki real payment details, Tauri-generated icons
-
-### v1.0.0 — 2026
 
 Pehla release.
 
@@ -104,4 +124,6 @@ Pehla release.
 - 10 accent color themes + Light/Dark/System
 - Collapsible sidebar, system tray (minimize instead of quit), custom
   right-click menu
-- Donate page, About page with auto-update
+- Real auto-update (`tauri-plugin-updater`), About + Donate pages
+- GitHub Actions release workflow, `download-widget.html`
+- Fixed window size (1100x910, non-resizable), custom Windows manifest

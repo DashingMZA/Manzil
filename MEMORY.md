@@ -10,6 +10,32 @@ chhote bullets. Poore paragraphs nahi.
 
 ---
 
+## 2026-10-12 — v1.0.3: GitHub Actions ki teeno platform failures
+
+User ne CI ke 4 screenshots bheje (macOS x2, Ubuntu, Windows) — teen alag
+asal wajahein nikli, teeno fix:
+
+- **macOS (aarch64 + x86_64) — `tsc` fail:** `Sidebar.tsx:62`
+  `COLOR_MODES[(i+1) % len]` ka type `ColorMode | undefined` tha
+  (`tsconfig` mein `noUncheckedIndexedAccess: true`). `?? "dark"` fallback.
+  CI log mein "Found 1 error" tha, baaki index accesses scan kiye — sab typed
+  keys hain, theek. **Meri pichli galti:** mere checks sirf
+  `ts.transpileModule` (syntax) the, real type-check nahi — isi liye ye
+  nikal gaya. Sandbox mein deps na hone se `tsc --noEmit` nahi chala sakta.
+- **Ubuntu — `apt-get install` fail:** `libappindicator3-dev` aur
+  `libayatana-appindicator3-dev` conflict karte hain. Pehle wala hata diya
+  (Tauri 2 ayatana use karta hai).
+- **Windows — `fetch-node.mjs` fail:** `EXDEV: cross-device link not
+  permitted` — runner par temp `C:\` aur repo `D:\` hai, `renameSync`
+  drive ke beech nahi chalta. `copyFileSync` kiya. Temp folder ka purana
+  naam `zaheerai-node-fetch-` bhi `manzil-node-fetch-` kiya.
+- Version 1.0.2 → **1.0.3**, `RELEASES.md` changelog add.
+- **Verify nahi:** in fixes ke baad naye Rust-compile errors aa sakte hain
+  (macOS/Linux/Windows teeno ab Rust build tak pahunchenge — pehli baar
+  `tray.rs` / single-instance / autostart actual compiler se guzrenge).
+
+---
+
 ## 2026-10-05 — v1.0.2: sidebar layout fix, tray i18n, window-show bug, single-instance, autostart, .env
 
 - **Version scheme (user ne explicitly durust kiya):** pehle maine

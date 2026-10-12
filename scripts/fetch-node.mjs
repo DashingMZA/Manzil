@@ -13,7 +13,7 @@
  * distribution ke liye ye script chalana zaroori hai.
  */
 
-import { createWriteStream, existsSync, mkdirSync, chmodSync, renameSync, rmSync } from "node:fs";
+import { createWriteStream, existsSync, mkdirSync, chmodSync, copyFileSync, rmSync } from "node:fs";
 import { pipeline } from "node:stream/promises";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
@@ -84,7 +84,7 @@ if (existsSync(outPath)) {
 const archiveName = `node-v${NODE_VERSION}-${target.dist}.${target.archiveExt}`;
 const url = `https://nodejs.org/dist/v${NODE_VERSION}/${archiveName}`;
 
-const tmpDir = path.join(os.tmpdir(), `zaheerai-node-fetch-${Date.now()}`);
+const tmpDir = path.join(os.tmpdir(), `manzil-node-fetch-${Date.now()}`);
 mkdirSync(tmpDir, { recursive: true });
 const archivePath = path.join(tmpDir, archiveName);
 
@@ -120,7 +120,11 @@ if (!existsSync(srcExe)) {
   process.exit(1);
 }
 
-renameSync(srcExe, outPath);
+// rename NAHI — temp dir (jaise C:) aur repo (jaise D:) alag drive par ho
+// to renameSync "EXDEV: cross-device link not permitted" se fail hota hai
+// (GitHub Windows runner par yahi hua). copy + temp dir cleanup har
+// platform par kaam karta hai.
+copyFileSync(srcExe, outPath);
 if (!isWindows) chmodSync(outPath, 0o755);
 
 rmSync(tmpDir, { recursive: true, force: true });

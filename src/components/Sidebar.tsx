@@ -59,7 +59,9 @@ export function Sidebar({ running }: { running: boolean }) {
 
   function cycleMode() {
     const i = COLOR_MODES.indexOf(mode);
-    setMode(COLOR_MODES[(i + 1) % COLOR_MODES.length]);
+    // `noUncheckedIndexedAccess` on hai — index ka type `ColorMode | undefined`
+    // hota hai, is liye fallback zaroori hai.
+    setMode(COLOR_MODES[(i + 1) % COLOR_MODES.length] ?? "dark");
   }
 
   const CurrentModeIcon = MODE_ICON[mode];

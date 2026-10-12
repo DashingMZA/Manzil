@@ -95,6 +95,18 @@ Version numbering: **sequential patch bumps** — 1.0.1, 1.0.2, 1.0.3 ... Har
 release par teeno files (`package.json`, `src-tauri/tauri.conf.json`,
 `src-tauri/Cargo.toml`) mein version exactly same rakhein aur 1 badhayein.
 
+### v1.0.3 — 2026
+
+GitHub Actions release build ki teeno platforms par failures theek kin:
+
+- **macOS:** `Sidebar.tsx` mein TypeScript error (`noUncheckedIndexedAccess`
+  ki wajah se array index `undefined` ho sakta tha) — fallback add kiya
+- **Linux:** `libappindicator3-dev` ko workflow ki apt list se hataya — ye
+  `libayatana-appindicator3-dev` se conflict karta hai (Tauri 2 ayatana wala
+  use karta hai)
+- **Windows:** `scripts/fetch-node.mjs` mein `renameSync` alag drive
+  (temp `C:` vs repo `D:`) par `EXDEV` se fail hota tha — ab `copyFileSync`
+
 ### v1.0.2 — 2026
 
 - Window ab launch par hamesha turant dikhti hai (Rust side se `setup()`

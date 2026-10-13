@@ -23,10 +23,11 @@ Ye do cheezein degi:
 
 ### 2. Public key `tauri.conf.json` mein daalein
 
-`src-tauri/tauri.conf.json` ke `plugins.updater.pubkey` mein abhi
-`"REPLACE_WITH_YOUR_OWN_GENERATED_PUBLIC_KEY"` likha hai — isay apni asal
-public key se badal dein aur commit kar dein (public key share karna theek
-hai, isi liye "public" hai).
+`src-tauri/tauri.conf.json` ke `plugins.updater.pubkey` mein apni asal
+public key honi chahiye, `REPLACE_WITH_...` jaisa placeholder nahi (abhi
+asli key lagi hui hai). Public key commit karna theek hai, isi liye "public"
+hai. Key kabhi badlein to purane release ke users ka auto-update kaam nahi
+karega (wo purani key se verify karte hain).
 
 ### 3. GitHub repo secrets set karein
 
@@ -94,6 +95,19 @@ Publish hote hi:
 Version numbering: **sequential patch bumps** — 1.0.1, 1.0.2, 1.0.3 ... Har
 release par teeno files (`package.json`, `src-tauri/tauri.conf.json`,
 `src-tauri/Cargo.toml`) mein version exactly same rakhein aur 1 badhayein.
+
+### v1.0.6 — 2026
+
+- **macOS Intel (`x86_64-apple-darwin`) build fix:** `build.rs` ruk jata tha
+  ("resource path `binaries/node-x86_64-apple-darwin` doesn't exist").
+  Wajah: `fetch-node.mjs` target host machine se chunta thi, aur GitHub ka
+  `macos-latest` runner Apple Silicon hai — to Intel wali leg ko bhi arm64 ka
+  Node mil raha tha. Ab script build target se chunti hai (`--target`,
+  `TARGET_TRIPLE`, `TAURI_ENV_TARGET_TRIPLE`), aur `release.yml` matrix target
+  pass karta hai
+- `package.json`, `tauri.conf.json`, `release.yml` aapke edit kiye hue
+  versions se liye (naye dependency versions, asli updater pubkey, publisher
+  `cSofts`, workflow ki `contents: write` permission)
 
 ### v1.0.5 — 2026
 

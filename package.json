@@ -1,6 +1,6 @@
 {
   "name": "manzil",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": true,
   "description": "Manzil (manzil.bond) \u2014 NVIDIA NIM -> Claude Code proxy, as a Tauri 2 desktop app",
   "author": "Zaheer Ahmad",
@@ -17,8 +17,8 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "typecheck": "tsc --noEmit",
     "tauri": "tauri",
-    "app:dev": "node scripts/sync-tauri-versions.mjs && tauri dev",
-    "app:build": "node scripts/sync-tauri-versions.mjs && dotenv -e .env -- tauri build",
+    "app:dev": "tauri dev",
+    "app:build": "dotenv -e .env -- tauri build",
     "app:icon": "tauri icon",
     "fetch:node": "node scripts/fetch-node.mjs",
     "sync:tauri": "node scripts/sync-tauri-versions.mjs"

@@ -226,11 +226,14 @@ par, pehle se chala kar rakh sakte hain.
 hai (Node 20+ machine par hona chahiye). Settings page par "Check" button se
 confirm kar sakte hain.
 
-Doosre platform ke liye build karna ho (e.g. Mac par Windows build), us
-platform par alag se `pnpm fetch:node` chalana hoga — cross-compilation ke
-liye ye script us machine ke `process.platform`/`process.arch` se hi decide
-karta hai, kisi target flag se nahi. Naya platform add karna ho to
-`scripts/fetch-node.mjs` ke `PLATFORM_MAP` mein entry add karein.
+Script ka target **build target se** chunta hai, host machine se nahi:
+`--target <triple>` arg, ya `TARGET_TRIPLE` env, ya (Tauri ke hooks mein)
+`TAURI_ENV_TARGET_TRIPLE`; kuch na diya ho to host machine. Is se Apple Silicon
+Mac par Intel build ho sakti hai: `TARGET_TRIPLE=x86_64-apple-darwin pnpm
+fetch:node` (GitHub Actions mein `release.yml` matrix target yahi pass karta
+hai). Windows -> Mac jaisi asli cross-compilation support nahi hoti. Naya
+platform add karna ho to `scripts/fetch-node.mjs` ke `PLATFORM_MAP` mein entry
+add karein.
 
 ---
 

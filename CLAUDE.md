@@ -112,5 +112,11 @@ dein, lekin decisions aur unresolved TODOs kabhi mat hataayein.
   `pnpm sync:tauri`). Naya Tauri plugin add karo to NPM package aur Cargo
   crate dono add karo (naam mapping: `@tauri-apps/plugin-X` ->
   `tauri-plugin-X`) — sync script baaki sambhal leta hai.
+- **`fetch-node.mjs` target-driven hai, host-driven nahi.** Sidecar ka
+  naam `node-<target-triple>` hona zaroori hai aur `build.rs` ise build se
+  pehle dhoondta hai. CI mein `fetch:node` step ko `TARGET_TRIPLE:
+  ${{ matrix.target }}` dena zaroori hai (macOS runner arm64 hai — warna Intel
+  leg ko galat Node milta hai). Naya matrix target add karo to
+  `PLATFORM_MAP` mein bhi entry do.
 - **`package.json` user ki di hui file hai** — dependency versions apni
   marzi se na badlein; sirf zaroorat par naye packages add karein.

@@ -56,20 +56,47 @@ const PLATFORM_MAP = {
   },
 };
 
-const key = `${process.platform}-${process.arch}`;
-const target = PLATFORM_MAP[key];
+// Kis target ke liye Node chahiye? Host machine ke hisaab se NAHI, balke
+// build target ke hisaab se. Farq tab padta hai jab host aur target alag hon:
+// GitHub ka `macos-latest` runner Apple Silicon (arm64) hai, lekin
+// `--target x86_64-apple-darwin` wali leg ko Intel ka Node chahiye. Host
+// ke hisaab se chunte to us leg ko `node-aarch64-apple-darwin` mil jata aur
+// Tauri `binaries/node-x86_64-apple-darwin` na milne par build.rs mein hi
+// ruk jata ("resource path ... doesn't exist").
+//
+// Priority: `--target <triple>` arg > TARGET_TRIPLE env > TAURI_ENV_TARGET_TRIPLE
+// env (Tauri CLI apne hooks mein khud set karta hai) > host machine.
+function requestedTriple() {
+  const i = process.argv.indexOf("--target");
+  if (i !== -1 && process.argv[i + 1]) return process.argv[i + 1];
+  return process.env.TARGET_TRIPLE || process.env.TAURI_ENV_TARGET_TRIPLE || null;
+}
+
+const hostKey = `${process.platform}-${process.arch}`;
+const wantedTriple = requestedTriple();
+
+const target = wantedTriple
+  ? Object.values(PLATFORM_MAP).find((t) => t.triple === wantedTriple)
+  : PLATFORM_MAP[hostKey];
 
 if (!target) {
   console.error(
-    `Ye platform (${key}) is script mein mapped nahi hai.\n` +
-      `scripts/fetch-node.mjs ke PLATFORM_MAP mein naya entry add karein — ` +
-      `Tauri ke target-triple naming convention ke hisaab se ` +
-      `(https://tauri.app/develop/sidecar/ dekhein).`,
+    wantedTriple
+      ? `Target "${wantedTriple}" is script mein mapped nahi hai.\n`
+      : `Ye platform (${hostKey}) is script mein mapped nahi hai.\n`,
+  );
+  console.error(
+    "scripts/fetch-node.mjs ke PLATFORM_MAP mein naya entry add karein — " +
+      "Tauri ke target-triple naming convention ke hisaab se " +
+      "(https://tauri.app/develop/sidecar/ dekhein).",
   );
   process.exit(1);
 }
 
-const isWindows = target.triple.includes("windows");
+console.log(`Target: ${target.triple}  (host: ${hostKey})`);
+
+const isWindows = target.triple.includes("windows"); // target Windows hai (.exe naam)
+const hostIsWindows = process.platform === "win32"; // host Windows hai (tar.exe/PowerShell)
 const outDir = path.join(process.cwd(), "src-tauri", "binaries");
 mkdirSync(outDir, { recursive: true });
 
@@ -106,7 +133,7 @@ console.log("Extracting...");
 // bsdtar (`System32\\tar.exe`) use karte hain, aur archive ka sirf naam dete
 // hain (cwd = tmpDir) taake koi drive-letter wala path tar tak pahunche hi nahi.
 function tarCommand() {
-  if (isWindows) {
+  if (hostIsWindows) {
     const sysTar = path.join(process.env.SystemRoot || "C:\\Windows", "System32", "tar.exe");
     if (existsSync(sysTar)) return sysTar;
   }
@@ -131,7 +158,7 @@ function extractWithPowerShell() {
 try {
   execFileSync(tarCommand(), ["-xf", archiveName], { stdio: "inherit", cwd: tmpDir });
 } catch (e) {
-  if (isWindows) {
+  if (hostIsWindows) {
     console.warn("tar fail hua — PowerShell Expand-Archive se try kar raha hoon...");
     try {
       extractWithPowerShell();
@@ -164,7 +191,7 @@ if (!existsSync(srcExe)) {
 // (GitHub Windows runner par yahi hua). copy + temp dir cleanup har
 // platform par kaam karta hai.
 copyFileSync(srcExe, outPath);
-if (!isWindows) chmodSync(outPath, 0o755);
+if (!hostIsWindows) chmodSync(outPath, 0o755);
 
 rmSync(tmpDir, { recursive: true, force: true });
 

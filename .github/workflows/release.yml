@@ -80,12 +80,19 @@ jobs:
 
       # Node sidecar GitHub runner se download hota hai — GitHub ka
       # network nodejs.org se seedha bhi tez hota hai, aur har platform
-      # apna hi target fetch karta hai (`fetch-node.mjs` khud is runner
-      # ke `process.platform`/`process.arch` se decide karta hai).
+      # apna hi target fetch karta hai (`fetch-node.mjs` `TARGET_TRIPLE` env
+      # se decide karta hai, neeche dekhein).
       # `tauri.conf.json` ka `beforeBundleCommand` bhi isay khud chala
       # leta hai, lekin yahan explicit rakha hai taake agar fail ho to
       # saaf alag step mein dikhe, build step ke andar dabi hui na rahe.
+      #
+      # TARGET_TRIPLE zaroori hai: `macos-latest` runner Apple Silicon hai, to
+      # `x86_64-apple-darwin` wali leg ko bina isay arm64 ka Node mil jata
+      # tha aur build.rs `binaries/node-x86_64-apple-darwin` na milne par
+      # ruk jata tha. Ab script host se nahi, is matrix target se chunti hai.
       - name: Fetch bundled Node sidecar for this target
+        env:
+          TARGET_TRIPLE: ${{ matrix.target }}
         run: pnpm fetch:node
 
       - name: Build and release

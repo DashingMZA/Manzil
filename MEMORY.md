@@ -10,6 +10,41 @@ chhote bullets. Poore paragraphs nahi.
 
 ---
 
+## 2026-10-13 — v1.0.6: macOS x86_64 sidecar (host vs target)
+
+- **User ne 3 files khud edit kin** (`package.json`, `release.yml`,
+  `tauri.conf.json`) aur kaha crate/npm mismatch solve ho gaya, teen
+  platforms compile ho rahe hain; in files ko as-is use karne ko kaha. Unki
+  taraf se badlav: dependency versions upar (fs ^2.7.0, shell ^2.5.0 ...),
+  asli updater `pubkey` (placeholder gaya), publisher/copyright `cSofts`,
+  `release.yml` mein `permissions: contents: write` aur `pnpm/action-setup`
+  se `version: 12` hata di (ab `packageManager` field se), aur mera
+  "Align Rust plugin crate versions" CI step bhi hata diya (unki marzi —
+  ab lock/specifiers crates ke saath align hain). Sync script `app:dev` /
+  `app:build` mein ab bhi hai. **Risk:** CI mein sync nahi, to agar crates
+  phir npm se aage nikal gaye aur lock purani rahi to mismatch wapas aa sakta
+  hai — tab wo step dobara add karna.
+- **Fail sirf macOS x86_64 par:** `build.rs:31 failed to build Tauri
+  resources: resource path binaries/node-x86_64-apple-darwin doesn't exist`.
+  **Wajah:** `fetch-node.mjs` `process.platform-process.arch` (HOST) se target
+  chunta tha. `macos-latest` = Apple Silicon, to `--target
+  x86_64-apple-darwin` leg par bhi `node-aarch64-apple-darwin` bana.
+  Baaki 3 isliye chali ke unka host == target. (Pehle README mein likha tha
+  "kisi target flag se nahi" — wo ab galat tha, theek kiya.)
+- **Fix:** target ab `--target <triple>` > `TARGET_TRIPLE` >
+  `TAURI_ENV_TARGET_TRIPLE` > host. Host-specific cheezein (Windows
+  `tar.exe`/PowerShell fallback, chmod) alag `hostIsWindows` par, `.exe` naam
+  target par. `release.yml` ke fetch step ko `env: TARGET_TRIPLE: ${{
+  matrix.target }}`. Offline test: 6 cases (Intel mac, ARM mac, Tauri env,
+  `--target`, host default, unknown triple) sahi URL/error dete hain.
+  **Download + extract asli runner par nahi chala.**
+- Version 1.0.5 -> **1.0.6** (user ki files 1.0.5 par thi, +1).
+- **Note:** Intel mac par `chmod`/exec sirf runtime mein hota hai; cross se
+  sirf archive extract hota hai (execute nahi), isliye arm runner par bhi
+  theek hai.
+
+---
+
 ## 2026-10-12 — v1.0.5: crate/npm mismatch — asal wajah aur sahi fix
 
 - **User ki report:** v1.0.4 ke baad bhi wahi mismatch error. User ne

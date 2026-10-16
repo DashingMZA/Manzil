@@ -4,9 +4,10 @@ version = "1.0.6"
 description = "NVIDIA NIM -> Claude Code proxy control panel"
 authors = ["Zaheer Ahmad"]
 homepage = "https://manzil.bond"
+repository = "https://github.com/DashingMZA/Manzil"
 license = "MIT"
-edition = "2021"
-rust-version = "1.77"
+edition = "2024"
+rust-version = "1.95"
 
 [build-dependencies]
 tauri-build = { version = "2", features = [] }

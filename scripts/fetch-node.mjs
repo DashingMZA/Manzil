@@ -19,9 +19,9 @@ import { execFileSync } from "node:child_process";
 import path from "node:path";
 import os from "node:os";
 
-// LTS version — proxy.js sirf Node 20+ ka built-in `fetch` maangta hai, is
+// LTS version — proxy.js sirf Node 24+ ka built-in `fetch` maangta hai, is
 // se zyada kuch nahi. Badalna ho to bas ye string badal dein.
-const NODE_VERSION = "24.19.0";
+const NODE_VERSION = "26.13.1";
 
 const PLATFORM_MAP = {
   "win32-x64": {

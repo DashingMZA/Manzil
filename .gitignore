@@ -17,5 +17,9 @@ src-tauri/binaries/
 Thumbs.db
 
 # Env
-.env
-.env.local
+.env*
+!.env.example
+
+#Key
+manzil.key
+manzil.key.pub

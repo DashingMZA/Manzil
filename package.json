@@ -1,14 +1,31 @@
 {
   "name": "manzil",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
-  "description": "Manzil (manzil.bond) \u2014 NVIDIA NIM -> Claude Code proxy, as a Tauri 2 desktop app",
-  "author": "Zaheer Ahmad",
-  "homepage": "https://manzil.bond",
+  "description": "Manzil (manzil.bond) \u2014 NVIDIA NIM -> Claude Code proxy, as a desktop app",
+  "keywords": [
+    "Mazil",
+    "ai-agents",
+    "claude-code",
+    "Manzil Claude Code proxy",
+    "Manzil NVIDIA NIM",
+    "NVIDIA NIM",
+    "Claude Code proxy"
+  ],
+  "homepage": "https://github.com/DashingMZA/Manzile#readme",
+  "bugs": {
+    "url": "https://github.com/DashingMZA/Manzil/issues"
+  },
+  "author": "Muhammad Zaheer Ahmad",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DashingMZA/Manzil.git"
+  },
   "license": "MIT",
-  "packageManager": "pnpm@12.9.1",
+  "type": "module",
+  "packageManager": "pnpm@12.9.0",
   "engines": {
-    "node": ">=24"
+    "node": ">=26"
   },
   "scripts": {
     "dev": "next dev --turbopack -p 1420",
@@ -17,37 +34,37 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "typecheck": "tsc --noEmit",
     "tauri": "tauri",
-    "app:dev": "tauri dev",
-    "app:build": "dotenv -e .env -- tauri build",
-    "app:icon": "tauri icon",
+    "tauri:dev": "pnpm run fetch:node && dotenv -e .env -- tauri dev",
+    "tauri:build": "pnpm run fetch:node && dotenv -e .env -- tauri build",
+    "tauri:icon": "tauri icon",
     "fetch:node": "node scripts/fetch-node.mjs",
     "sync:tauri": "node scripts/sync-tauri-versions.mjs"
   },
   "dependencies": {
-    "@tauri-apps/api": "^2.12.3",
+    "@tauri-apps/api": "^2.12.5",
     "@tauri-apps/plugin-autostart": "^2.7.0",
-    "@tauri-apps/plugin-clipboard-manager": "^2.4.2",
-    "@tauri-apps/plugin-dialog": "^2.8.2",
-    "@tauri-apps/plugin-fs": "^2.7.0",
-    "@tauri-apps/plugin-opener": "^2.7.1",
+    "@tauri-apps/plugin-clipboard-manager": "^2.5.0",
+    "@tauri-apps/plugin-dialog": "^2.8.4",
+    "@tauri-apps/plugin-fs": "^2.7.1",
+    "@tauri-apps/plugin-opener": "^2.7.2",
     "@tauri-apps/plugin-process": "^2.4.0",
-    "@tauri-apps/plugin-shell": "^2.5.0",
-    "@tauri-apps/plugin-updater": "^2.13.3",
-    "@tauri-apps/plugin-sql": "^2.5.0",
-    "next": "16.3.8",
-    "react": "19.3.0",
-    "react-dom": "19.3.0",
-    "zod": "^4.6.5"
+    "@tauri-apps/plugin-shell": "^2.6.0",
+    "@tauri-apps/plugin-updater": "^2.14.1",
+    "@tauri-apps/plugin-sql": "^2.6.0",
+    "next": "16.4.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^2.12.2",
-    "@types/node": "^24.19.2",
+    "@tauri-apps/cli": "^2.12.6",
+    "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "dotenv-cli": "^11.0.0",
-    "eslint": "10.12.0",
-    "eslint-config-next": "16.3.8",
-    "prettier": "3.9.9",
+    "dotenv-cli": "^11.1.0",
+    "eslint": "10.15.0",
+    "eslint-config-next": "16.4.6",
+    "prettier": "3.10.1",
     "typescript": "^7.0.2"
   }
 }

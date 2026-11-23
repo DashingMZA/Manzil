@@ -68,7 +68,7 @@ jobs:
           node-version: 26
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
